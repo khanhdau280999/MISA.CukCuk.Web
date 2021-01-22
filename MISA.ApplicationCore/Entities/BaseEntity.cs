@@ -6,25 +6,56 @@ using System.Text;
 namespace MISA.ApplicationCore.Entities
 {
     /// <summary>
-    /// Định nghĩa các trường bắt buộc
+    /// check các trường bắt buộc nhập
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class Required:Attribute
     {
 
     }
+    /// <summary>
+    /// Check trùng lặp
+    /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class CheckDuplicate:Attribute
     {
 
     }
-
+    /// <summary>
+    /// khóa chính định nghĩa
+    /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class PrimaryKey : Attribute
     {
 
     }
 
+    /// <summary>
+    /// check dữ liệu kiểu Email
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Property)]
+    public class Email : Attribute { }
+
+    /// <summary>
+    /// check dữ liệu kiểu Số điện thoại
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Property)]
+    public class PhoneNum : Attribute { }
+
+
+    [AttributeUsage(AttributeTargets.Property)]
+    public class DisplayName : Attribute
+    {
+        public string Name { get; set; }
+        public DisplayName(string name = "")
+        {
+            this.Name = name;
+        }
+    }
+
+    /// <summary>
+    /// validate độ dài 
+    /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class MaxLength : Attribute
     {

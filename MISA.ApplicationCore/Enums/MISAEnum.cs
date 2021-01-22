@@ -22,7 +22,12 @@ namespace MISA.ApplicationCore.Enums
         /// <summary>
         /// Thành công
         /// </summary>
-        Success = 200
+        Success = 200,
+
+        /// <summary>
+        /// Lỗi Exception
+        /// </summary>
+        Exception = 500
     }
 
     /// <summary>

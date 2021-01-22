@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MISA.ApplicationCore.Enums;
 using MISA.ApplicationCore.Interfaces;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -52,10 +53,14 @@ namespace MISA.CukCuk.Web.Controllers
         /// <param name="customer">objec khách hàng</param>
         /// <returns>kết quả số bản ghi bị ảnh hưởng</returns>
         [HttpPost]
-        public IActionResult Post(TEntity entity)
+        public IActionResult Post([FromBody] TEntity entity)
         {
-            var rowAffects = _baseService.Add(entity);
-            return Ok(rowAffects);
+            var serviceResult = _baseService.Add(entity);
+            if (serviceResult.MISACode == MISACode.NotValid)
+            {
+                return BadRequest(serviceResult);
+            }
+            return Ok(serviceResult);
         }
 
         // PUT api/<CustomersController>/5
@@ -75,8 +80,12 @@ namespace MISA.CukCuk.Web.Controllers
             {
                 keyProperty.SetValue(entity, id);
             }
-            var rowAffects = _baseService.Update(entity);
-            return Ok(rowAffects);
+            var serviceResult = _baseService.Update(entity);
+            if (serviceResult.MISACode == MISACode.NotValid)
+            {
+                return BadRequest(serviceResult);
+            }
+            return Ok(serviceResult);
         }
 
         // DELETE api/<CustomersController>/5

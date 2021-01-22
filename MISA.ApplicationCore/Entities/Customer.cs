@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -33,6 +32,7 @@ namespace MISA.ApplicationCore.Entities
         [CheckDuplicate]
         [Required]
         [DisplayName("Mã khách hàng")]
+        [MaxLength(20,"Mã khách hàng không vượt quá 20 kí tự.")]
         public string CustomerCode { get; set; }
 
         /// <summary>
@@ -108,10 +108,10 @@ namespace MISA.ApplicationCore.Entities
         /// Ngừng theo dõi (true - ngừng theo dõi)
         /// </summary>
         public bool? IsStopFollow { get; set; }
-        public DateTime? CreatedDate { get; set; }
-        public string CreatedBy { get; set; }
-        public DateTime? ModifiedDate { get; set; }
-        public string ModifiedBy { get; set; }
+        //public DateTime? CreatedDate { get; set; }
+        //public string CreatedBy { get; set; }
+        //public DateTime? ModifiedDate { get; set; }
+        //public string ModifiedBy { get; set; }
 
         #endregion
 

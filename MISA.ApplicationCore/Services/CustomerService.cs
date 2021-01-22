@@ -20,6 +20,11 @@ namespace MISA.ApplicationCore
             _customerRepository = customerRepository;
         }
 
+        protected override bool ValidateCustom(Customer entity)
+        {
+            return base.ValidateCustom(entity);
+        }
+
         public IEnumerable<Customer> GetCustomerPaging(int limit, int offset)
         {
             throw new NotImplementedException();

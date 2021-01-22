@@ -13,7 +13,7 @@ using MISA.ApplicationCore.Entities;
 
 namespace MISA.Infrastructure
 {
-    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity: BaseEntity
+    public class BaseRepository<TEntity> : IBaseRepository<TEntity>, IDisposable where TEntity: BaseEntity
     {
         #region DECLARE
         IConfiguration _configuration;
@@ -30,17 +30,30 @@ namespace MISA.Infrastructure
         }
         public int Add(TEntity entity)
         {
-            // TEntityhởi tạo TEntityết nối với Db:
-            var parameters = MappingDBType(entity);
-            // Thực thi commandText
-            var rowAffects = _dbConnection.Execute($"Proc_Insert{_tableName}", parameters, commandType: CommandType.StoredProcedure);
-            // Trả về số bản ghi thêm mới được
+            var rowAffects = 0;
+            _dbConnection.Open();
+            using (var transaction = _dbConnection.BeginTransaction())
+            {
+                var parameters = MappingDBType(entity);
+                // Thực thi commandText
+                rowAffects = _dbConnection.Execute($"Proc_Insert{_tableName}", parameters, commandType: CommandType.StoredProcedure);
+                // Trả về số bản ghi thêm mới được
+                transaction.Commit();
+            }
             return rowAffects;
+
         }
 
         public int Delete(Guid entityId)
         {
-            throw new NotImplementedException();
+            var res = 0;
+            _dbConnection.Open();
+            using (var transaction = _dbConnection.BeginTransaction())
+            {
+                var rowAffected = _dbConnection.Execute($"Delete from {_tableName} where {_tableName}Id = '{entityId.ToString()}'", commandType: CommandType.Text);
+                transaction.Commit();
+            }
+            return res;
         }
 
         public virtual IEnumerable<TEntity> GetEntities()
@@ -115,6 +128,14 @@ namespace MISA.Infrastructure
                 return null;
             var entityReturn = _dbConnection.Query<TEntity>(query, commandType: CommandType.Text).FirstOrDefault();
             return entityReturn;
+        }
+
+        public void Dispose()
+        {
+            if (_dbConnection.State == ConnectionState.Open)
+            {
+                _dbConnection.Close();
+            }
         }
     }
 }
