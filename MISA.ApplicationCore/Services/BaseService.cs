@@ -7,17 +7,19 @@ using System.Text;
 
 namespace MISA.ApplicationCore.Services
 {
-    public class BaseService<TEntity> : IBaseService<TEntity> where TEntity:BaseEntity
+    public class BaseService<TEntity> : IBaseService<TEntity> where TEntity : BaseEntity
     {
+        #region Declare
         IBaseRepository<TEntity> _baseRepository;
         ServiceResult _serviceResult;
+        #endregion
 
         #region Constructor
         public BaseService(IBaseRepository<TEntity> baseRepository)
         {
             _baseRepository = baseRepository;
             _serviceResult = new ServiceResult() { MISACode = Enums.MISACode.Success };
-            
+
         }
         #endregion
         public virtual ServiceResult Add(TEntity entity)
@@ -25,8 +27,8 @@ namespace MISA.ApplicationCore.Services
             entity.EntityState = Enums.EntityState.AddNew;
             // Thực hiện Validate
             var isValidate = Validate(entity);
-            if (isValidate == true)
-                isValidate = ValidateCustom(entity);
+            //if (isValidate == true)
+            //    isValidate = ValidateCustom(entity);
             if (isValidate == true)
             {
                 _serviceResult.Data = _baseRepository.Add(entity);
@@ -35,16 +37,29 @@ namespace MISA.ApplicationCore.Services
             }
             else
             {
-               
+
                 return _serviceResult;
             }
-            
+
         }
 
         public ServiceResult Delete(Guid entityId)
         {
-            _serviceResult.Data = _baseRepository.Delete(entityId);
+            var rowAffects = _baseRepository.Delete(entityId);
+            if (rowAffects == 0)
+            {
+                _serviceResult.MISACode = MISACode.NotSuccess;
+                _serviceResult.Messenger = Properties.Resources.Msg_NotSuccess;
+                _serviceResult.Data = 0;
+                return _serviceResult;
+            }
+            _serviceResult.MISACode = MISACode.Success;
+            _serviceResult.Messenger = Properties.Resources.Msg_Success;
+            _serviceResult.Data = rowAffects;
             return _serviceResult;
+
+            //_serviceResult.Data = _baseRepository.Delete(entityId);
+            //return _serviceResult;
         }
 
         public IEnumerable<TEntity> GetEntities()
@@ -74,13 +89,22 @@ namespace MISA.ApplicationCore.Services
             }
         }
 
+        /// <summary>
+        /// Validate dữ liệu
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         private bool Validate(TEntity entity)
         {
             var mesArrayError = new List<string>();
             var isValidate = true;
-            var serviceResult = new ServiceResult();
             // Đọc các Property:
             var properties = entity.GetType().GetProperties();
+
+            _serviceResult.MISACode = MISACode.IsValid;
+            _serviceResult.Messenger = Properties.Resources.Msg_IsValid;
+            _serviceResult.Data = Properties.Resources.Msg_IsValid;
+
             foreach (var property in properties)
             {
                 var displayName = string.Empty;
@@ -97,7 +121,7 @@ namespace MISA.ApplicationCore.Services
                     if (propertyValue == null)
                     {
                         isValidate = false;
-                        mesArrayError.Add($"Thông tin {displayName} không được phép để trống");
+                        mesArrayError.Add(string.Format(Properties.Resources.Msg_Required, displayName));
                         _serviceResult.MISACode = Enums.MISACode.NotValid;
                         _serviceResult.Messenger = Properties.Resources.Msg_IsNotValid;
                     }
@@ -107,7 +131,7 @@ namespace MISA.ApplicationCore.Services
                     // Check trùng dữ liệu :
                     var propertyName = property.Name;
                     var entityDuplicate = _baseRepository.GetEntityByProperty(entity, property);
-                    if(entityDuplicate != null)
+                    if (entityDuplicate != null)
                     {
                         isValidate = false;
                         mesArrayError.Add(string.Format(Properties.Resources.Msg_Duplicate, displayName));
@@ -121,16 +145,16 @@ namespace MISA.ApplicationCore.Services
                 if (property.IsDefined(typeof(MaxLength), false))
                 {
                     // Lấy độ dài đã khai báo
-                    var attributeMaxLength = property.GetCustomAttributes(typeof(MaxLength), true)[0];
+                    var attributeMaxLength = (property.GetCustomAttributes(typeof(MaxLength), true)[0]);
                     var length = (attributeMaxLength as MaxLength).Value;
                     var msg = (attributeMaxLength as MaxLength).ErrorMsg;
 
                     if (propertyValue.ToString().Trim().Length > length)
                     {
                         isValidate = false;
-                        mesArrayError.Add(msg??$"Thông tin này vượt quá {length} ký tự cho phép.");
+                        mesArrayError.Add(msg ?? string.Format(Properties.Resources.Msg_MaxLengthError, length));
                         _serviceResult.MISACode = Enums.MISACode.NotValid;
-                        _serviceResult.Messenger = "Dữ liệu không hợp lệ";
+                        _serviceResult.Messenger = Properties.Resources.Msg_IsNotValid;
                     }
 
                 }
@@ -138,6 +162,13 @@ namespace MISA.ApplicationCore.Services
 
             }
             _serviceResult.Data = mesArrayError;
+
+            var isValidCustom = ValidateCustom(entity);
+            if (!isValidCustom)
+            {
+                isValidate = false;
+            }
+
             return isValidate;
         }
 
@@ -150,6 +181,11 @@ namespace MISA.ApplicationCore.Services
         protected virtual bool ValidateCustom(TEntity entity)
         {
             return true;
+        }
+
+        public List<TEntity> GetEntitiesFilter(string specs, Guid? departmentId, Guid? positionId)
+        {
+            return _baseRepository.GetEntitiesFilter(specs, departmentId, positionId);
         }
     }
 }

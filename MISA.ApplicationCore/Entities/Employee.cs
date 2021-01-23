@@ -16,6 +16,7 @@ namespace MISA.ApplicationCore.Entities
         /// </summary>
         [PrimaryKey]
         public Guid EmployeeId { get; set; }
+
         /// <summary>
         /// Mã nhân viên
         /// </summary>
@@ -23,38 +24,114 @@ namespace MISA.ApplicationCore.Entities
         [Required]
         [DisplayName("Mã nhân viên")]
         public string EmployeeCode { get; set; }
+
         /// <summary>
         /// Họ và đệm
         /// </summary>
         public string FirstName { get; set; }
+
         /// <summary>
         /// Tên
         /// </summary>
         public string LastName { get; set; }
+
         /// <summary>
         /// Tên đầy đủ
         /// </summary>
+        [Required]
+        [DisplayName("Tên nhân viên")]
         public string FullName { get; set; }
+
         /// <summary>
         /// Ngày tháng năm sinh
         /// </summary>
+        [DisplayName("Ngày sinh")]
         public DateTime? DateOfBirth { get; set; }
+
+        /// <summary>
+        /// Số chứng minh nhân dân / thẻ căn cước
+        /// </summary>
+        [Required]
+        [DisplayName("Số CMTND hoặc Căn cước")]
+        public string IdentityNumber { get; set; }
+
+        /// <summary>
+        /// Ngày cấp Chứng minh nhân dân / thẻ căn cước
+        /// </summary>
+        /// 
+        [DisplayName("Ngày cấp")]
+        public DateTime? IdentityDate { get; set; }
+
         /// <summary>
         /// địa chỉ email
         /// </summary>
+        [Required]
+        [Email]
+        [DisplayName("Email")]
         public string Email { get; set; }
+
         /// <summary>
         /// Số điện thoại
         /// </summary>
+        [Required]
+        [PhoneNum]
+        [CheckDuplicate]
+        [DisplayName("Số điện thoại")]
         public string PhoneNumber { get; set; }
+
+        /// <summary>
+        /// Mã chức vụ
+        /// </summary>
+        [DisplayName("Id chức vụ")]
+        public Guid? PositionId { get; set; }
+
+        /// <summary>
+        /// Tên chức vụ
+        /// </summary>
+        [DisplayName("Tên chức vụ")]
+        public string PositionName { get; set; }
+
+        /// <summary>
+        /// ID Phòng ban
+        /// </summary>
+        [DisplayName("ID Phòng ban")]
+        public Guid? DepartmentId { get; set; }
+
+        /// <summary>
+        /// Tên Phòng ban
+        /// </summary>
+        [DisplayName("Tên Phòng ban")]
+        public string DepartmentName { get; set; }
+
+        /// <summary>
+        /// Mã số thuế cá nhân
+        /// </summary>
+        [DisplayName("Mã số thuế cá nhân")]
+        public string PersonalTaxCode { get; set; }
+
+        /// <summary>
+        /// Ngày tham gia công ty
+        /// </summary>
+        [DisplayName("Ngày tham gia công ty")]
+        public DateTime? JoinDate { get; set; }
+
+        /// <summary>
+        /// Trạng thái làm việc
+        /// </summary>
+        [DisplayName("Trạng thái làm việc")]
+        public int? WorkStatus { get; set; }
+
         /// <summary>
         /// Giới tính (0-nữ, 1-nam, 2-khác)
-        /// </summary>
+        [DisplayName("Giới tính")]
         public int? Gender { get; set; }
+
         /// <summary>
-        /// Địa chỉ
+        /// Mức lương
         /// </summary>
-        public string Address { get; set; }
+        [DisplayName("Lương")]
+        public double? Salary { get; set; }
+
         #endregion
 
     }

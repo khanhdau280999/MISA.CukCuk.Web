@@ -13,6 +13,7 @@ namespace MISA.Infrastructure
 {
     public class EmployeeRepository : BaseRepository<Employee>, IEmployeeRepository
     {
+        IEmployeeRepository _employeeRepository;
         public EmployeeRepository(IConfiguration configuration) : base(configuration)
         {
 
@@ -20,7 +21,7 @@ namespace MISA.Infrastructure
 
         public Employee GetEmployeeByCode(string employeeCode)
         {
-            var employeeDuplicate = _dbConnection.Query<Employee>($"SELECT * FROM Customer WHERE EmployeeCode = '{employeeCode}'", commandType: CommandType.Text).FirstOrDefault();
+            var employeeDuplicate = _dbConnection.QueryFirstOrDefault<Employee>($"Prop_Get{_tableName}ByCode", param: new { EmployeeCode = employeeCode }, commandType: CommandType.StoredProcedure);
             return employeeDuplicate;
         }
     }

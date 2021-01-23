@@ -119,14 +119,30 @@
   </resheader>
   <data name="Msg_Duplicate" xml:space="preserve">
     <value>Thông tin {0} trùng lặp.</value>
-    <comment>Thông tin bị trùng lặp</comment>
+    <comment>Thông tin bị trùng lặp.</comment>
   </data>
   <data name="Msg_IsNotValid" xml:space="preserve">
     <value>Dữ liệu không hợp lệ.</value>
-    <comment>Dữ liệu không hợp lệ</comment>
+    <comment>Dữ liệu không hợp lệ.</comment>
+  </data>
+  <data name="Msg_IsValid" xml:space="preserve">
+    <value>Dữ liệu hợp lệ</value>
+    <comment>Dữ liệu hợp lệ.</comment>
   </data>
   <data name="Msg_MaxLengthError" xml:space="preserve">
     <value>Thông tin này vượt quá {0} ký tự cho phép.</value>
-    <comment>Thông tin vượt quá độ dài cho phép</comment>
+    <comment>Thông tin vượt quá độ dài cho phép.</comment>
+  </data>
+  <data name="Msg_NotSuccess" xml:space="preserve">
+    <value>Thao tác không thành công có lỗi xảy ra</value>
+    <comment>Thao tác không thành công có lỗi xảy ra.</comment>
+  </data>
+  <data name="Msg_Required" xml:space="preserve">
+    <value>Thông tin {0} không được phép để trống.</value>
+    <comment>Thông tin không được phép để trống.</comment>
+  </data>
+  <data name="Msg_Success" xml:space="preserve">
+    <value>Thao tác thành công</value>
+    <comment>Thao tác thành công.</comment>
   </data>
 </root>

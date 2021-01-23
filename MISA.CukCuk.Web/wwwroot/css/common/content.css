@@ -1,0 +1,40 @@
+﻿.content {
+    position: absolute;
+    top: 61px;
+    left: 221px;
+    width: calc(100% - 253px);
+    /*width: calc(100% - 221px);*/
+    /*height: calc(100vh - 61px);*/
+    background-color: #ffffff;
+    padding: 16px;
+}
+
+/*Page title*/
+    .content .header-content {
+        padding: 8px 0 16px 0;
+        /*padding:16px;*/
+        display:flex;
+        align-items:center;
+    }
+
+/*filter bar*/
+
+    .content .header-content .title{
+        font-size: 20px;
+        font-weight: bold;
+    }
+        .content .header-content .content-feature {
+            position: absolute;
+            right: 16px;
+            /*right:40px;*/
+            /*default right:16px*/
+        }
+        .content .filter-bar{
+
+        }
+
+
+/*Paging*/
+    .content .paging-bar {
+        height: 55px;
+    }
