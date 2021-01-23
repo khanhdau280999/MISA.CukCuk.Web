@@ -11,10 +11,10 @@ namespace MISA.CukCuk.Web.Controllers
 {
     public class DepartmentsController : BaseEntityController<Department>
     {
-        IDepartmentService _departmentService;
-        public DepartmentsController(IDepartmentService departmentService) : base(departmentService)
+        IBaseService<Department> _baseService;
+        public DepartmentsController(IBaseService<Department> baseService) : base(baseService)
         {
-            _departmentService = departmentService;
+            _baseService = baseService;
         }
     }
 }

@@ -6,12 +6,12 @@ using System.Text;
 
 namespace MISA.ApplicationCore.Services
 {
-    public class DepartmentService : BaseService<Department>, IDepartmentService
+    public class DepartmentService : BaseService<Department>
     {
-        IDepartmentRepository _departmentRepository;
-        public DepartmentService(IDepartmentRepository departmentRepository) : base(departmentRepository)
+        IBaseRepository<Department> _baseRepository;
+        public DepartmentService(IBaseRepository<Department> baseRepository) : base(baseRepository)
         {
-            _departmentRepository = departmentRepository;
+            _baseRepository = baseRepository;
         }
     }
 }

@@ -7,9 +7,13 @@ using System.Text;
 
 namespace MISA.Infrastructure
 {
-    public class DepartmentRepository : BaseRepository<Department>, IDepartmentRepository
+    public class DepartmentRepository : BaseRepository<Department>
     {
-        public DepartmentRepository(IConfiguration configuration) : base(configuration) { }
+        IConfiguration _configuration;
+        public DepartmentRepository(IConfiguration configuration) : base(configuration) 
+        {
+            _configuration = configuration;
+        }
 
     }
 }

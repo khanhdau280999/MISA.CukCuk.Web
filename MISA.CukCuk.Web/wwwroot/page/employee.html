@@ -101,14 +101,14 @@
                     <tr>
                         <th fieldName="EmployeeCode">Mã nhân viên</th>
                         <th fieldName="FullName">Họ và tên</th>
-                        <th fieldName="GenderName" formatType="gender">Giới tính</th>
+                        <th fieldName="GenderName">Giới tính</th>
                         <th fieldName="DateOfBirth" formatType="ddmmyyyy" style="text-align:center">Ngày sinh</th>
-                        <th fieldName="PhoneNumber" displayType="num">Số điện thoại</th>
+                        <th fieldName="PhoneNumber">Số điện thoại</th>
                         <th fieldName="Email">Email</th>
                         <th fieldName="PositionName">Chức vụ</th>
                         <th fieldName="DepartmentName">Phòng ban</th>
                         <th fieldName="Salary" formatType="MoneyVND">Mức lương cơ bản</th>
-                        <th fieldName="WorkStatus" formatType="isWorking">Tình trạng công việc</th>
+                        <th fieldName="WorkStatus">Tình trạng công việc</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -169,7 +169,7 @@
                             </div>
                             <div class="m-flex-1 mg-left-10px">
                                 <div class="title">Giới tính</div>
-                                <select class="input-dropdown" fieldName="Gender" fieldValue="Gender" reserve="false">
+                                <select id="cbxGender" class="input-dropdown" fieldName="Gender" fieldValue="Gender">
                                     <option value="1">Nam</option>
                                     <option value="0">Nữ</option>
                                     <option value="2">Khác</option>
@@ -198,7 +198,7 @@
                         <div class="m-row m-flex">
                             <div class="m-flex-1">
                                 <div>Email (<span class="label-required">*</span>)</div>
-                                <div><input id="txtEmail" fieldName="Email" type="email" placeholder="example@domain.com" /></div>
+                                <div><input id="txtEmail" fieldName="Email" type="email" class="input-required" placeholder="example@domain.com" required /></div>
                             </div>
                             <div class="m-flex-1 mg-left-10px">
                                 <div>Số điện thoại (<span class="label-required">*</span>)</div>
@@ -206,7 +206,7 @@
                             </div>
                         </div>
 
-                        <div class="m-flex"><h4 class="border-bottom">B.THÔNG CÔNG VIỆC:</h4></div>
+                        <div class="m-flex"><h4 class="border-bottom">B.THÔNG TIN CÔNG VIỆC:</h4></div>
 
                         <div class="m-flex">
                             <div class="m-flex-1">
