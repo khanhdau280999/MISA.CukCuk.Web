@@ -54,5 +54,6 @@ namespace MISA.ApplicationCore.Interfaces
         /// <returns></returns>
         /// CreatedBy: PQKHANH 22/01/2021
         TEntity GetEntityByProperty(TEntity entity, PropertyInfo property);
+        List<TEntity> GetEntitiesFilter(string specs, Guid? departmentId, Guid? positionId);
     }
 }

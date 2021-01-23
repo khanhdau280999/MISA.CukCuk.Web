@@ -130,6 +130,19 @@ namespace MISA.Infrastructure
             return entityReturn;
         }
 
+        public List<TEntity> GetEntitiesFilter(string specs, Guid? departmentId, Guid? positionId)
+        {
+            var input = specs ?? string.Empty;
+            var parameters = new DynamicParameters();
+            parameters.Add($"@{_tableName}Code", input, DbType.String);
+            parameters.Add("@FullName", input, DbType.String);
+            parameters.Add("@PhoneNumber", input, DbType.String);
+            parameters.Add("@DepartmentId", departmentId, DbType.String);
+            parameters.Add("@PositionId", positionId, DbType.String);
+            var entity = _dbConnection.Query<TEntity>($"Proc_Get{_tableName}Filter", parameters, commandType: CommandType.StoredProcedure).ToList();
+            return entity;
+        }
+
         public void Dispose()
         {
             if (_dbConnection.State == ConnectionState.Open)

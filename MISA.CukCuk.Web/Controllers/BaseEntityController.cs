@@ -21,9 +21,9 @@ namespace MISA.CukCuk.Web.Controllers
         }
 
         /// <summary>
-        /// Lấy toàn bộ khách hàng
+        /// Lấy toàn bộ dữ liệu
         /// </summary>
-        /// <returns>Danh sách khách hàng</returns>
+        /// <returns>Danh sách dữ liệu</returns>
         /// CreatedBy : PQKHANH(31/12/2020)
         [HttpGet]
         public IActionResult Get()
@@ -52,6 +52,7 @@ namespace MISA.CukCuk.Web.Controllers
         /// </summary>
         /// <param name="customer">objec khách hàng</param>
         /// <returns>kết quả số bản ghi bị ảnh hưởng</returns>
+        /// CreatedBy: PQKHANH(31/12/2020)
         [HttpPost]
         public IActionResult Post([FromBody] TEntity entity)
         {
@@ -90,10 +91,20 @@ namespace MISA.CukCuk.Web.Controllers
 
         // DELETE api/<CustomersController>/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(Guid id)
+        public IActionResult Delete(string id)
         {
-            var res = _baseService.Delete(id);
-            return Ok(res);
+            var serviceResult = _baseService.Delete(Guid.Parse(id));
+            if (serviceResult.MISACode == MISACode.NotSuccess)
+            {
+                return NoContent();
+            }
+            return Ok(serviceResult);
+        }
+
+        [HttpGet("filter")]
+        public IActionResult GetEntitiesFilter([FromQuery] string specs, [FromQuery] Guid? departmentId, [FromQuery] Guid? positionId)
+        {
+            return Ok(_baseService.GetEntitiesFilter(specs, departmentId, positionId));
         }
 
     }

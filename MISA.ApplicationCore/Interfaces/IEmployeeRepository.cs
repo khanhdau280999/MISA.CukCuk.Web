@@ -7,11 +7,12 @@ namespace MISA.ApplicationCore.Interfaces
 {
     public interface IEmployeeRepository : IBaseRepository<Employee>
     {
-        //IEnumerable<Employee> GetEmployees();
-        //Employee GetEmployeeById(Guid employeeId);
-        //int AddEmployee(Employee employee);
-        //int UpdateEmployee(Employee employee);
-        //int DeleteEmployee(Guid employeeId);
+        /// <summary>
+        /// Lấy dữ liệu theo mã nhân viên
+        /// </summary>
+        /// <param name="employeeCode"></param>
+        /// <returns></returns>
+        /// CreatedBy: PQKHANH 23/01/2021
         Employee GetEmployeeByCode(string employeeCode);
     }
 }

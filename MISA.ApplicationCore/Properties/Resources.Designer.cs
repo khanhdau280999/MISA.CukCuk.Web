@@ -79,11 +79,47 @@ namespace MISA.ApplicationCore.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dữ liệu hợp lệ.
+        /// </summary>
+        internal static string Msg_IsValid {
+            get {
+                return ResourceManager.GetString("Msg_IsValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thông tin này vượt quá {0} ký tự cho phép..
         /// </summary>
         internal static string Msg_MaxLengthError {
             get {
                 return ResourceManager.GetString("Msg_MaxLengthError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thao tác không thành công có lỗi xảy ra.
+        /// </summary>
+        internal static string Msg_NotSuccess {
+            get {
+                return ResourceManager.GetString("Msg_NotSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thông tin {0} không được phép để trống..
+        /// </summary>
+        internal static string Msg_Required {
+            get {
+                return ResourceManager.GetString("Msg_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thao tác thành công.
+        /// </summary>
+        internal static string Msg_Success {
+            get {
+                return ResourceManager.GetString("Msg_Success", resourceCulture);
             }
         }
     }

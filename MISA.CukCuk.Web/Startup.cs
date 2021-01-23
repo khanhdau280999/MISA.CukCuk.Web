@@ -15,6 +15,8 @@ using MISA.ApplicationCore.Interfaces;
 using MISA.ApplicationCore.Services;
 using MISA.CukCuk.Web.Middlewares;
 using MISA.Infrastructure;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace MISA.CukCuk.Web
 {
@@ -35,7 +37,17 @@ namespace MISA.CukCuk.Web
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddCors();
+            services.AddControllers()
+                .AddNewtonsoftJson(option =>
+            {
+                option.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                option.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
+            //services.AddSwaggerGen(c =>
+            //{
+            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "MISA.CukCuk.Api", Version = "v1" });
+            //}); ;
             // Add middlaware xử lý việc mapping data với kiểu dữ liệu là guid:
             SqlMapper.AddTypeHandler(new MySqlGuidTypeHandler());
             SqlMapper.RemoveTypeMap(typeof(Guid));
@@ -61,8 +73,10 @@ namespace MISA.CukCuk.Web
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseCors(option => option.AllowAnyMethod().AllowAnyOrigin().AllowAnyHeader());
 
+            app.UseAuthorization();
+            app.UseStaticFiles();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

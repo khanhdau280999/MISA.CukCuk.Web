@@ -8,7 +8,7 @@ namespace MISA.ApplicationCore.Entities
     /// Chức vụ
     /// </summary>
     /// CreatedBy: PQKHANH (22/01/2021)
-    public class Position
+    public class Position : BaseEntity
     {
         /// <summary>
         /// Mã chức vụ

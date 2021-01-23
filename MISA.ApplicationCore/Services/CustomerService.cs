@@ -19,7 +19,9 @@ namespace MISA.ApplicationCore
         {
             _customerRepository = customerRepository;
         }
+        #endregion
 
+        #region Method
         protected override bool ValidateCustom(Customer entity)
         {
             return base.ValidateCustom(entity);
