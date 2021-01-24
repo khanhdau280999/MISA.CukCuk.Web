@@ -36,7 +36,7 @@ namespace MISA.ApplicationCore.Interfaces
         /// <param name="entity"></param>
         /// <returns></returns>
         /// CreatedBy: PQKHANH 23/01/2021
-        ServiceResult Update(string id, TEntity entity);
+        ServiceResult Update(TEntity entity);
 
         /// <summary>
         /// Xóa dữ liệu

@@ -76,10 +76,13 @@ namespace MISA.Infrastructure
 
         public TEntity GetEntityById(Guid entityId)
         {
-            throw new NotImplementedException();
+            DynamicParameters id = new DynamicParameters();
+            id.Add(_paramName, entityId.ToString());
+            var res = _dbConnection.Query<TEntity>($"Proc_Get{_tableName}ById", id, commandType: CommandType.StoredProcedure).FirstOrDefault();
+            return res;
         }
 
-        public int Update(string id, TEntity entity)
+        public int Update(TEntity entity)
         {
             // Khởi tạo kết nối với Db:
             var parameters = MappingDBType(entity);

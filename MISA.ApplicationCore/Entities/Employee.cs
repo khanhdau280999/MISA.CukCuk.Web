@@ -62,6 +62,14 @@ namespace MISA.ApplicationCore.Entities
         [DisplayName("Ngày cấp")]
         public DateTime? IdentityDate { get; set; }
 
+
+        /// <summary>
+        /// Nơi cấp
+        /// </summary>
+        /// 
+        [DisplayName("Nơi cấp")]
+        public string IdentityPlace { get; set; }
+
         /// <summary>
         /// địa chỉ email
         /// </summary>

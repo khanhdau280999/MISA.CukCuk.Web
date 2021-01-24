@@ -72,13 +72,13 @@ namespace MISA.ApplicationCore.Services
             return _baseRepository.GetEntityById(entityId);
         }
 
-        public ServiceResult Update(string id, TEntity entity)
+        public ServiceResult Update(TEntity entity)
         {
             entity.EntityState = Enums.EntityState.Update;
             var isValidate = Validate(entity);
             if (isValidate == true)
             {
-                _serviceResult.Data = _baseRepository.Update(id, entity);
+                _serviceResult.Data = _baseRepository.Update(entity);
                 _serviceResult.MISACode = Enums.MISACode.IsValid;
                 return _serviceResult;
             }
@@ -162,27 +162,8 @@ namespace MISA.ApplicationCore.Services
 
             }
             _serviceResult.Data = mesArrayError;
-
-            var isValidCustom = ValidateCustom(entity);
-            if (!isValidCustom)
-            {
-                isValidate = false;
-            }
-
             return isValidate;
         }
-
-
-        /// <summary>
-        /// Hàm thực hiện kiểm tra dữ liệu/ nghiệp vụ tùy chỉnh
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        protected virtual bool ValidateCustom(TEntity entity)
-        {
-            return true;
-        }
-
         public List<TEntity> GetEntitiesFilter(string specs, Guid? departmentId, Guid? positionId)
         {
             return _baseRepository.GetEntitiesFilter(specs, departmentId, positionId);

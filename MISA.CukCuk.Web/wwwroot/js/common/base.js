@@ -54,8 +54,6 @@
                 $.each(inputs, function (index, input) {
                     var propertyName = $(this).attr('fieldName');
                     var value = $(this).val();
-
-                    //check với trường hợp input là radio, thì chỉ lấy value của input có atrribu là checked
                     entity[propertyName] = value;
                 })
                 //xác định phương thức cho nút lưu
@@ -64,7 +62,6 @@
                 if (me.FormMode == 'Edit') {
                     method = "PUT";
                     id = '/' + me.recordId;
-                    //entity.CustomerId = me.recordId;
                 }
                 //gọi service tương tác thực hiện lưu dữ liệu
                 $.ajax({
@@ -73,16 +70,15 @@
                     data: JSON.stringify(entity),
                     contentType: 'application/json'
                 }).done(function (res) {
-                    //sau khi lưu thàng công
-                    //+ đưa ra thông báo cho người dùng
+                    //đưa ra thông báo cho người dùng
                     alert("Thêm Thành công");
-                    //+ Ẩn form chi tiết
+                    // Ẩn form chi tiết
                     dialogDetail.dialog('close');
-                    //+ load lại dữ liệu
+                    // load lại dữ liệu
                     me.loadData();
                 }).fail(function (res) {
                     alert("Thêm không thành công vui lòng thử lại hoặc liên hệ Misa");
-
+                    dialogDetail.dialog('close');
                 })
             } catch (e) {
                 console.log(e);
@@ -125,6 +121,25 @@
             dialogDetail.dialog('open');
         })
 
+        // xóa dữ liệu 
+        $('#btnDelete').click(function () {
+            var check = confirm('Bạn có chắc muốn xóa không');
+            if (check == true) {
+                var recordId = me.recordId;
+                //gọi service lấy thông tin chi tiết theo id
+                $.ajax({
+                    url: me.host + me.apiRouter + `/${recordId}`,
+                    method: "DELETE"
+                }).done(function (res) {
+                    alert("Xóa thành công dữ liệu");
+                    dialogDetail.dialog('close');
+                    me.loadData();
+                }).fail(function () {
+
+                })
+            }
+        })
+
         /*
          * validate bắt buộc nhập:
          * CreatedBy: PQKHANH (27/12/2020)
@@ -161,7 +176,10 @@
         })
     }
 
-
+    /**
+     * Load combobox chức vụ , phòng ban
+     * CreatedBy: Phú Quốc Khánh (23/01/2021)
+     * */
     loadCombobox() {
         var me = this;
         // Hiển thị combo box
@@ -171,14 +189,6 @@
             var api = $(select).attr('api');
             var fieldName = $(select).attr('fieldName');
             var fieldValue = $(select).attr('fieldValue');
-            if (fieldValue == "DepartmentName") {
-                var optionDeault = $(`<option value="">Tất cả phòng ban</option>`);
-                $(select).append(optionDeault);
-            }
-            if (fieldValue == "PositionName") {
-                var optionDeault = $(`<option value="">Tất cả chức vụ</option>`);
-                $(select).append(optionDeault);
-            }
             $.ajax({
                 url: me.host + '/' + api,
                 method: "GET"
@@ -261,40 +271,3 @@
 
     }
 }
-    //loadComboboxDepartment() {
-    //    var me = this;
-    //    var select = $('select#cbxDepartmentName');
-    //    select.empty();
-    //    //Lấy dữ liệu nhóm khách hàng
-    //    $.ajax({
-    //        url: me.host + "/Departments",
-    //        method: 'GET'
-    //    }).done(function (res) {
-    //        if (res) {
-    //            $.each(res, function (index, obj) {
-    //                var option = $(`<option value="${obj.DepartmentId}">${obj.DepartmentName}</option>`);
-    //                select.append(option);
-    //            })
-    //        }
-    //    }).fail(function (res) {
-    //    });
-    //}
-
-    //loadComboboxPosition() {
-    //    var me = this;
-    //    var select = $('select#cbxPositionName')
-    //    select.empty();
-    //    //Lấy dữ liệu nhóm khách hàng
-    //    $.ajax({
-    //        url: me.host + "/Positions",
-    //        method: 'GET'
-    //    }).done(function (res) {
-    //        if (res) {
-    //            $.each(res, function (index, obj) {
-    //                var option = $(`<option value="${obj.PositionId}">${obj.PositionName}</option>`);
-    //                select.append(option);
-    //            })
-    //        }
-    //    }).fail(function (res) {
-    //    });
-    //}

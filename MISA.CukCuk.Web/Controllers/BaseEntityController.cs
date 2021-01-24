@@ -56,24 +56,53 @@ namespace MISA.CukCuk.Web.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] TEntity entity)
         {
-            var serviceResult = _baseService.Add(entity);
-            if (serviceResult.MISACode == MISACode.NotValid)
+            //var serviceResult = _baseService.Add(entity);
+            //if (serviceResult.MISACode == MISACode.NotValid)
+            //{
+            //    return BadRequest(serviceResult);
+            //}
+            //return Created("Add",serviceResult);
+            var rowAffects = _baseService.Add(entity);
+            if (rowAffects.MISACode == MISACode.NotValid)
             {
-                return BadRequest(serviceResult);
+                return BadRequest(rowAffects);
             }
-            return Created("Add",serviceResult);
+            else
+                return Ok(rowAffects);
         }
 
         // PUT api/<CustomersController>/5
         [HttpPut("{id}")]
         public IActionResult Put([FromRoute]string id, [FromBody] TEntity entity)
         {
-            var serviceResult = _baseService.Update(id, entity);
-            if (serviceResult.MISACode == MISACode.NotValid)
+            //var serviceResult = _baseService.Update(id, entity);
+            //if (serviceResult.MISACode == MISACode.NotValid)
+            //{
+            //    return BadRequest(serviceResult);
+            //}
+            //return Ok(serviceResult);
+
+            var keyProperty = entity.GetType().GetProperty($"{typeof(TEntity).Name}Id");
+            if (keyProperty.PropertyType == typeof(Guid))
             {
-                return BadRequest(serviceResult);
+                keyProperty.SetValue(entity, Guid.Parse(id));
             }
-            return Ok(serviceResult);
+            else if (keyProperty.PropertyType == typeof(int))
+            {
+                keyProperty.SetValue(entity, int.Parse(id));
+            }
+            else
+            {
+                keyProperty.SetValue(entity, id);
+            }
+            var rowAffects = _baseService.Update(entity);
+            if (rowAffects.MISACode == MISACode.NotValid)
+            {
+                return BadRequest(rowAffects);
+            }
+            else
+                return Ok(rowAffects);
+
         }
 
         // DELETE api/<CustomersController>/5
