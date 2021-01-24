@@ -72,13 +72,13 @@ namespace MISA.ApplicationCore.Services
             return _baseRepository.GetEntityById(entityId);
         }
 
-        public ServiceResult Update(TEntity entity)
+        public ServiceResult Update(string id, TEntity entity)
         {
             entity.EntityState = Enums.EntityState.Update;
             var isValidate = Validate(entity);
             if (isValidate == true)
             {
-                _serviceResult.Data = _baseRepository.Update(entity);
+                _serviceResult.Data = _baseRepository.Update(id, entity);
                 _serviceResult.MISACode = Enums.MISACode.IsValid;
                 return _serviceResult;
             }

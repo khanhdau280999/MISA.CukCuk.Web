@@ -61,27 +61,14 @@ namespace MISA.CukCuk.Web.Controllers
             {
                 return BadRequest(serviceResult);
             }
-            return Ok(serviceResult);
+            return Created("Add",serviceResult);
         }
 
         // PUT api/<CustomersController>/5
         [HttpPut("{id}")]
         public IActionResult Put([FromRoute]string id, [FromBody] TEntity entity)
         {
-            var keyProperty = entity.GetType().GetProperty($"{typeof(TEntity).Name}Id");
-            if (keyProperty.PropertyType == typeof(Guid))
-            {
-                keyProperty.SetValue(entity, Guid.Parse(id));
-            }
-            else if (keyProperty.PropertyType == typeof(int))
-            {
-                keyProperty.SetValue(entity, int.Parse(id));
-            }
-            else
-            {
-                keyProperty.SetValue(entity, id);
-            }
-            var serviceResult = _baseService.Update(entity);
+            var serviceResult = _baseService.Update(id, entity);
             if (serviceResult.MISACode == MISACode.NotValid)
             {
                 return BadRequest(serviceResult);

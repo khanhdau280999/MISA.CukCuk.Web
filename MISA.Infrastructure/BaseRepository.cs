@@ -19,41 +19,50 @@ namespace MISA.Infrastructure
         IConfiguration _configuration;
         string _connectionString = string.Empty;
         protected IDbConnection _dbConnection = null;
-        protected string _tableName;
+        protected string _tableName = typeof(TEntity).Name;
+        string _paramName = string.Empty;
         #endregion
         public BaseRepository(IConfiguration configuration)
         {
             _configuration = configuration;
             _connectionString = _configuration.GetConnectionString("DefaultConnectionString");
             _dbConnection = new MySqlConnection(_connectionString);
-            _tableName = typeof(TEntity).Name;
+            _paramName = $"{_tableName}Id";
         }
         public int Add(TEntity entity)
         {
-            var rowAffects = 0;
-            _dbConnection.Open();
-            using (var transaction = _dbConnection.BeginTransaction())
-            {
-                var parameters = MappingDBType(entity);
-                // Thực thi commandText
-                rowAffects = _dbConnection.Execute($"Proc_Insert{_tableName}", parameters, commandType: CommandType.StoredProcedure);
-                // Trả về số bản ghi thêm mới được
-                transaction.Commit();
-            }
-            return rowAffects;
+            //var rowAffects = 0;
+            //_dbConnection.Open();
+            //using (var transaction = _dbConnection.BeginTransaction())
+            //{
+            //    var parameters = MappingDBType(entity);
+            //    // Thực thi commandText
+            //    rowAffects = _dbConnection.Execute($"Proc_Insert{_tableName}", parameters, commandType: CommandType.StoredProcedure);
+            //    // Trả về số bản ghi thêm mới được
+            //    transaction.Commit();
+            //}
+            //return rowAffects;
+
+            var parameters = MappingDBType(entity);
+            var rowAffected = _dbConnection.Execute($"Proc_Insert{_tableName}", parameters, commandType: CommandType.StoredProcedure);
+            return rowAffected;
 
         }
 
         public int Delete(Guid entityId)
         {
-            var res = 0;
-            _dbConnection.Open();
-            using (var transaction = _dbConnection.BeginTransaction())
-            {
-                var rowAffected = _dbConnection.Execute($"Delete from {_tableName} where {_tableName}Id = '{entityId.ToString()}'", commandType: CommandType.Text);
-                transaction.Commit();
-            }
-            return res;
+            //var res = 0;
+            //_dbConnection.Open();
+            //using (var transaction = _dbConnection.BeginTransaction())
+            //{
+            //    var rowAffected = _dbConnection.Execute($"Delete from {_tableName} where {_tableName}Id = '{entityId.ToString()}'", commandType: CommandType.Text);
+            //    transaction.Commit();
+            //}
+            //return res;
+
+            var rowAffected = _dbConnection.Execute($"Delete from {_tableName} where {_tableName}Id = '{entityId}'", commandType: CommandType.Text);
+            return rowAffected;
+
         }
 
         public virtual IEnumerable<TEntity> GetEntities()
@@ -70,7 +79,7 @@ namespace MISA.Infrastructure
             throw new NotImplementedException();
         }
 
-        public int Update(TEntity entity)
+        public int Update(string id, TEntity entity)
         {
             // Khởi tạo kết nối với Db:
             var parameters = MappingDBType(entity);
@@ -101,10 +110,16 @@ namespace MISA.Infrastructure
                 {
                     parameters.Add($"@{propertyName}", propertyValue, DbType.String);
                 }
-                else if (propertyType == typeof(bool) || propertyType == typeof(bool?))
+                else if (propertyType == typeof(bool?))
                 {
-                    var dbValue = ((bool)propertyValue == true ? 1 : 0);
-                    parameters.Add($"@{propertyName}", dbValue, DbType.Int32);
+                    if (propertyValue != null)
+                        parameters.Add($"@{propertyName}", propertyValue.ToString() == "true" ? 1 : 0, DbType.Int32);
+                    else
+                        parameters.Add($"@{propertyName}", propertyValue);
+                }
+                else if (propertyType == typeof(double?))
+                {
+                    parameters.Add($"@{propertyName}", propertyValue, DbType.Double);
                 }
                 else
                 {

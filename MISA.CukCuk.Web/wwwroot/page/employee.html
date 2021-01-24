@@ -101,14 +101,14 @@
                     <tr>
                         <th fieldName="EmployeeCode">Mã nhân viên</th>
                         <th fieldName="FullName">Họ và tên</th>
-                        <th fieldName="GenderName">Giới tính</th>
+                        <th fieldName="Gender" formatType="Gender">Giới tính</th>
                         <th fieldName="DateOfBirth" formatType="ddmmyyyy" style="text-align:center">Ngày sinh</th>
                         <th fieldName="PhoneNumber">Số điện thoại</th>
                         <th fieldName="Email">Email</th>
                         <th fieldName="PositionName">Chức vụ</th>
                         <th fieldName="DepartmentName">Phòng ban</th>
                         <th fieldName="Salary" formatType="MoneyVND">Mức lương cơ bản</th>
-                        <th fieldName="WorkStatus">Tình trạng công việc</th>
+                        <th fieldName="WorkStatus" formatType="WorkStatus">Tình trạng công việc</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -168,8 +168,8 @@
                                 <div><input id="dtDateOfBirth" fieldName="DateOfBirth" type="date" /></div>
                             </div>
                             <div class="m-flex-1 mg-left-10px">
-                                <div class="title">Giới tính</div>
-                                <select id="cbxGender" class="input-dropdown" fieldName="Gender" fieldValue="Gender">
+                                <div class="m-label">Giới tính</div>
+                                <select id="cbxGender" fieldName="Gender" fieldValue="Gender">
                                     <option value="1">Nam</option>
                                     <option value="0">Nữ</option>
                                     <option value="2">Khác</option>
