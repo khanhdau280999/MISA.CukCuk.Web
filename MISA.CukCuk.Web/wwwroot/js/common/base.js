@@ -99,14 +99,14 @@
                     method: "GET"
                 }).done(function (res) {
                     //build lên form
-                    // lấy tất cả các controll nhập liệu
+                    // lấy tất cả các control nhập liệu
                     var entity = {};
                     var inputs = $('input[fieldName], select[fieldName]');
                     $.each(inputs, function (index, input) {
                         var propertyName = $(this).attr('fieldName');
                         var value = res[propertyName];
                         if (propertyName == "DateOfBirth" || propertyName == "JoinDate" || propertyName == "IdentityDate") {
-                            var dateValue = formatDate(value);
+                            var dateValue = formatDateApi(value);
                             $(this).val(dateValue);
                         } else {
                             $(this).val(value);
@@ -215,7 +215,7 @@
         var me = this;
         try {
             $('table tbody').empty();
-            //Hiển thị comboBox
+            //Load combobox
             me.loadCombobox();
             // Lấy thông tin các cột dữ liệu
             var columns = $('table thead th');

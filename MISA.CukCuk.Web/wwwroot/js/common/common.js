@@ -31,3 +31,23 @@ function formatMoney(money) {
     }
     return "";
 }
+
+
+/**
+ * Format dữ liệu ngày tháng lấy từ api về
+ * @param {any} date
+ * CreatedBy: PQKHANH (25/01/2020)
+ */
+function formatDateApi(date) {
+    var date = new Date(date);
+    if (Number.isNaN(date.getTime())) {
+        return "";
+    } else {
+        var day = date.getDate(),
+            month = date.getMonth() + 1,
+            year = date.getFullYear();
+        day = day < 10 ? '0' + day : day;
+        month = month < 10 ? '0' + month : month;
+        return year + '-' + month + '-' + day;
+    }
+}

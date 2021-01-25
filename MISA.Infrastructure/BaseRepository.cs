@@ -31,21 +31,21 @@ namespace MISA.Infrastructure
         }
         public int Add(TEntity entity)
         {
-            //var rowAffects = 0;
-            //_dbConnection.Open();
-            //using (var transaction = _dbConnection.BeginTransaction())
-            //{
-            //    var parameters = MappingDBType(entity);
-            //    // Thực thi commandText
-            //    rowAffects = _dbConnection.Execute($"Proc_Insert{_tableName}", parameters, commandType: CommandType.StoredProcedure);
-            //    // Trả về số bản ghi thêm mới được
-            //    transaction.Commit();
-            //}
-            //return rowAffects;
+            var rowAffects = 0;
+            _dbConnection.Open();
+            using (var transaction = _dbConnection.BeginTransaction())
+            {
+                var parameters = MappingDBType(entity);
+                // Thực thi commandText
+                rowAffects = _dbConnection.Execute($"Proc_Insert{_tableName}", parameters, commandType: CommandType.StoredProcedure);
+                // Trả về số bản ghi thêm mới được
+                transaction.Commit();
+            }
+            return rowAffects;
 
-            var parameters = MappingDBType(entity);
-            var rowAffected = _dbConnection.Execute($"Proc_Insert{_tableName}", parameters, commandType: CommandType.StoredProcedure);
-            return rowAffected;
+            //var parameters = MappingDBType(entity);
+            //var rowAffected = _dbConnection.Execute($"Proc_Insert{_tableName}", parameters, commandType: CommandType.StoredProcedure);
+            //return rowAffected;
 
         }
 
@@ -82,15 +82,39 @@ namespace MISA.Infrastructure
             return res;
         }
 
+
         public int Update(TEntity entity)
         {
-            // Khởi tạo kết nối với Db:
-            var parameters = MappingDBType(entity);
-            // Thực thi commandText
-            var rowAffects = _dbConnection.Execute($"Proc_Update{_tableName}", parameters, commandType: CommandType.StoredProcedure);
-            // Trả về số bản ghi thêm mới được
+            var rowAffects = 0;
+            _dbConnection.Open();
+            using (var transaction = _dbConnection.BeginTransaction())
+            {
+                try
+                {
+                    //Mapping type of data
+                    var parameters = MappingDBType(entity);
+                    //Excute commandText
+                    rowAffects = _dbConnection.Execute($"Proc_Update{_tableName}ById", parameters, commandType: CommandType.StoredProcedure);
+                    //Return number of record have been inserted
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                }
+            }
+
             return rowAffects;
         }
+        //public int Update(TEntity entity)
+        //{
+        //    // Khởi tạo kết nối với Db:
+        //    var parameters = MappingDBType(entity);
+        //    // Thực thi commandText
+        //    var rowAffects = _dbConnection.Execute($"Proc_Update{_tableName}", parameters, commandType: CommandType.StoredProcedure);
+        //    // Trả về số bản ghi thêm mới được
+        //    return rowAffects;
+        //}
 
 
         /// <summary>
@@ -113,16 +137,10 @@ namespace MISA.Infrastructure
                 {
                     parameters.Add($"@{propertyName}", propertyValue, DbType.String);
                 }
-                else if (propertyType == typeof(bool?))
+                else if (propertyType == typeof(bool) || propertyType == typeof(bool?))
                 {
-                    if (propertyValue != null)
-                        parameters.Add($"@{propertyName}", propertyValue.ToString() == "true" ? 1 : 0, DbType.Int32);
-                    else
-                        parameters.Add($"@{propertyName}", propertyValue);
-                }
-                else if (propertyType == typeof(double?))
-                {
-                    parameters.Add($"@{propertyName}", propertyValue, DbType.Double);
+                    var dbValue = ((bool)propertyValue == true ? 1 : 0);
+                    parameters.Add($"@{propertyName}", dbValue, DbType.Int32);
                 }
                 else
                 {

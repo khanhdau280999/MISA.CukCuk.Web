@@ -61,6 +61,8 @@ namespace MISA.CukCuk.Web
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+            services.AddScoped<IPositionService, PositionService>();
+            services.AddScoped<IPositionRepository, PositionRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

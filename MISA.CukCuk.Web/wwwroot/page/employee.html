@@ -81,7 +81,7 @@
         <div class="filter-bar">
             <div class="filter-left">
                 <input class="icon-search input-search" style="width:230px" type="text" placeholder="Tìm kiếm theo Mã, Tên hoặc Số điện thoại" />
-                <select class="mg-left-10px">
+                <select class="mg-left-10px" style="width:200px">
                     <option>Tất cả phòng ban</option>
                 </select>
                 <select class="mg-left-20px" style="width:200px">
@@ -94,7 +94,7 @@
             </div>
         </div>
         <div class="grid grid-employee">
-                <table border="0" width="100%" cellspacing="0">
+            <table border="0" width="100%" cellspacing="0">
                 <thead class="fixedHeader">
                     <tr>
                         <th fieldName="EmployeeCode">Mã nhân viên</th>
@@ -145,9 +145,10 @@
                         </div>
                     </div>
                     <div class="m-flex-2">
-                        <div class="m-flex"><h4 class="border-bottom">A.THÔNG TIN CHUNG:</h4>
-                        <div></div>
+                        <div class="m-flex">
+                            <div class="dialog-title">A.THÔNG TIN CHUNG:</div>
                         </div>
+                        <div class="border-bot"></div>
 
                         <div class="m-flex">
                             <div class="m-flex-1">
@@ -165,11 +166,11 @@
                         <div class="m-row m-flex">
                             <div class="m-flex-1">
                                 <div>Ngày sinh</div>
-                                <div><input id="dtDateOfBirth" fieldName="DateOfBirth" type="date" /></div>
+                                <div><input id="dtDateOfBirth" fieldName="DateOfBirth" type="date" style="width:170px" /></div>
                             </div>
                             <div class="m-flex-1 mg-left-10px">
                                 <div class="m-label">Giới tính</div>
-                                <select id="cbxGender" fieldName="Gender" fieldValue="Gender">
+                                <select class="select-width" id="cbxGender" fieldName="Gender" fieldValue="Gender">
                                     <option value="1">Nam</option>
                                     <option value="0">Nữ</option>
                                     <option value="2">Khác</option>
@@ -184,7 +185,7 @@
                             </div>
                             <div class="m-flex-1">
                                 <div>Ngày cấp</div>
-                                <div><input id="dtIdentityDate" fieldName="IdentityDate" type="date" /></div>
+                                <div><input id="dtIdentityDate" fieldName="IdentityDate" type="date" style="width:170px" /></div>
                             </div>
                         </div>
 
@@ -206,57 +207,45 @@
                             </div>
                         </div>
 
-                        <div class="m-flex"><h4 class="border-bottom">B.THÔNG TIN CÔNG VIỆC:</h4></div>
-
+                        <div class="m-flex"><div class="dialog-title">B.THÔNG TIN CÔNG VIỆC:</div></div>
+                        <div class="border-bot"></div>
                         <div class="m-flex">
                             <div class="m-flex-1">
                                 <div class="m-label">Vị trí</div>
-                                <select id="cbxPosition" fieldName="PositionId" fieldValue="PositionName" api="Positions" class="m-control">
+                                <select class="select-width" id="cbxPosition" fieldName="PositionId" fieldValue="PositionName" api="Positions">
                                 </select>
-                                <!--<combobox id="cbxPosition"
-                                          fieldName=""
-                                          valueName=""
-                                          api=""></combobox>-->
                             </div>
                             <div class="m-flex-1 mg-left-10px">
                                 <div class="m-label">Phòng ban</div>
-                                <select id="cbxDepartment" fieldName="DepartmentId" fieldValue="DepartmentName" api="Departments" class="m-control">
+                                <select class="select-width" id="cbxDepartment" fieldName="DepartmentId" fieldValue="DepartmentName" api="Departments">
                                 </select>
-                                <!--<combobox id="cbxDepartment"
-                                          fieldName=""
-                                          valueName=""
-                                          api=""></combobox>-->
                             </div>
                         </div>
 
                         <div class="m-row m-flex">
                             <div class="m-flex-1">
                                 <div class="m-label">Mã số thuế cá nhân</div>
-                                <div class="m-control"><input id="txtPersonalTaxCode" fieldName="PersonalTaxCode" type="text" /></div>
+                                <div><input id="txtPersonalTaxCode" fieldName="PersonalTaxCode" type="text" /></div>
                             </div>
                             <div class="m-flex-1 mg-left-10px">
                                 <div class="m-label">Mức lương cơ bản</div>
-                                <div class="m-control"><input id="txtSalary" fieldName="Salary" type="text"/><span>(VNĐ)</span></div>
+                                <div><input id="txtSalary" fieldName="Salary" type="text" /><span>(VNĐ)</span></div>
                             </div>
                         </div>
 
                         <div class="m-row m-flex">
                             <div class="m-flex-1">
                                 <div>Ngày gia nhập công ty</div>
-                                <div><input id="dtJoinDate" fieldName="JoinDate" type="date" /></div>
+                                <div><input id="dtJoinDate" fieldName="JoinDate" type="date" style="width:170px" /></div>
                             </div>
 
                             <div class="m-flex-1 mg-left-10px">
                                 <div class="m-label">Tình trạng công việc</div>
-                                <select id="cbxWorkStatus" fieldName="WorkStatus" fieldValue="WorkStatus">
+                                <select class="select-width" id="cbxWorkStatus" fieldName="WorkStatus" fieldValue="WorkStatus">
                                     <option value="1">Đang làm việc</option>
                                     <option value="0">Đã nghỉ việc</option>
                                     <option value="2">Đang thử việc</option>
                                 </select>
-                                <!--<combobox id="cbxWorkStatus"
-                                          fieldName=""
-                                          valueName=""
-                                          api=""></combobox>-->
                             </div>
                         </div>
 
@@ -266,12 +255,12 @@
                     <button id="btnDelete" class="m-second-button m-btn-delete">
                     </button>
                     <button id="btnCancel" class="m-btn">Hủy</button>
-                    <button id="btnSave" class="m-btn"><i class="far fa-save"></i><span class="btn-text">Lưu</span></button>
+                    <button id="btnSave" class="m-btn"><span class="btn-text">Lưu</span></button>
                 </div>
+            </div>
         </div>
     </div>
-        </div>
-     <div class="loading">
+    <div class="loading">
         <div class="loading-modal"></div>
         <div class="loading-icon"></div>
     </div>
