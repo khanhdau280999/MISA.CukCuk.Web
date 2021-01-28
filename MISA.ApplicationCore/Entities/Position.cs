@@ -19,10 +19,5 @@ namespace MISA.ApplicationCore.Entities
         /// Tên chức vụ
         /// </summary>
         public string PositionName { get; set; }
-
-        /// <summary>
-        /// Mô tả
-        /// </summary>
-        public string Description { get; set; }
     }
 }

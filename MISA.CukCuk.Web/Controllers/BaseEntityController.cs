@@ -56,18 +56,32 @@ namespace MISA.CukCuk.Web.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] TEntity entity)
         {
-            var serviceResult = _baseService.Add(entity);
-            if (serviceResult.MISACode == MISACode.NotValid)
+            //var serviceResult = _baseService.Add(entity);
+            //if (serviceResult.MISACode == MISACode.NotValid)
+            //{
+            //    return BadRequest(serviceResult);
+            //}
+            //return Created("Add",serviceResult);
+            var rowAffects = _baseService.Add(entity);
+            if (rowAffects.MISACode == MISACode.NotValid)
             {
-                return BadRequest(serviceResult);
+                return BadRequest(rowAffects);
             }
-            return Ok(serviceResult);
+            else
+                return Ok(rowAffects);
         }
 
         // PUT api/<CustomersController>/5
         [HttpPut("{id}")]
         public IActionResult Put([FromRoute]string id, [FromBody] TEntity entity)
         {
+            //var serviceResult = _baseService.Update(id, entity);
+            //if (serviceResult.MISACode == MISACode.NotValid)
+            //{
+            //    return BadRequest(serviceResult);
+            //}
+            //return Ok(serviceResult);
+
             var keyProperty = entity.GetType().GetProperty($"{typeof(TEntity).Name}Id");
             if (keyProperty.PropertyType == typeof(Guid))
             {
@@ -81,12 +95,14 @@ namespace MISA.CukCuk.Web.Controllers
             {
                 keyProperty.SetValue(entity, id);
             }
-            var serviceResult = _baseService.Update(entity);
-            if (serviceResult.MISACode == MISACode.NotValid)
+            var rowAffects = _baseService.Update(entity);
+            if (rowAffects.MISACode == MISACode.NotValid)
             {
-                return BadRequest(serviceResult);
+                return BadRequest(rowAffects);
             }
-            return Ok(serviceResult);
+            else
+                return Ok(rowAffects);
+
         }
 
         // DELETE api/<CustomersController>/5

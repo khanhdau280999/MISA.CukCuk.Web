@@ -11,10 +11,10 @@ namespace MISA.CukCuk.Web.Controllers
 {
     public class PositionsController : BaseEntityController<Position>
     {
-        IBaseService<Position> _baseService;
-        public PositionsController(IBaseService<Position> baseService) : base(baseService)
+        IPositionService _positionService;
+        public PositionsController(IPositionService positionService) : base(positionService)
         {
-            _baseService = baseService;
+            _positionService = positionService;
         }
     }
 }

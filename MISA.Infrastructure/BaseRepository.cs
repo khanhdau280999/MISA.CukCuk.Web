@@ -19,14 +19,15 @@ namespace MISA.Infrastructure
         IConfiguration _configuration;
         string _connectionString = string.Empty;
         protected IDbConnection _dbConnection = null;
-        protected string _tableName;
+        protected string _tableName = typeof(TEntity).Name;
+        string _paramName = string.Empty;
         #endregion
         public BaseRepository(IConfiguration configuration)
         {
             _configuration = configuration;
             _connectionString = _configuration.GetConnectionString("DefaultConnectionString");
             _dbConnection = new MySqlConnection(_connectionString);
-            _tableName = typeof(TEntity).Name;
+            _paramName = $"{_tableName}Id";
         }
         public int Add(TEntity entity)
         {
@@ -42,18 +43,26 @@ namespace MISA.Infrastructure
             }
             return rowAffects;
 
+            //var parameters = MappingDBType(entity);
+            //var rowAffected = _dbConnection.Execute($"Proc_Insert{_tableName}", parameters, commandType: CommandType.StoredProcedure);
+            //return rowAffected;
+
         }
 
         public int Delete(Guid entityId)
         {
-            var res = 0;
-            _dbConnection.Open();
-            using (var transaction = _dbConnection.BeginTransaction())
-            {
-                var rowAffected = _dbConnection.Execute($"Delete from {_tableName} where {_tableName}Id = '{entityId.ToString()}'", commandType: CommandType.Text);
-                transaction.Commit();
-            }
-            return res;
+            //var res = 0;
+            //_dbConnection.Open();
+            //using (var transaction = _dbConnection.BeginTransaction())
+            //{
+            //    var rowAffected = _dbConnection.Execute($"Delete from {_tableName} where {_tableName}Id = '{entityId.ToString()}'", commandType: CommandType.Text);
+            //    transaction.Commit();
+            //}
+            //return res;
+
+            var rowAffected = _dbConnection.Execute($"Delete from {_tableName} where {_tableName}Id = '{entityId}'", commandType: CommandType.Text);
+            return rowAffected;
+
         }
 
         public virtual IEnumerable<TEntity> GetEntities()
@@ -67,18 +76,45 @@ namespace MISA.Infrastructure
 
         public TEntity GetEntityById(Guid entityId)
         {
-            throw new NotImplementedException();
+            DynamicParameters id = new DynamicParameters();
+            id.Add(_paramName, entityId.ToString());
+            var res = _dbConnection.Query<TEntity>($"Proc_Get{_tableName}ById", id, commandType: CommandType.StoredProcedure).FirstOrDefault();
+            return res;
         }
+
 
         public int Update(TEntity entity)
         {
-            // Khởi tạo kết nối với Db:
-            var parameters = MappingDBType(entity);
-            // Thực thi commandText
-            var rowAffects = _dbConnection.Execute($"Proc_Update{_tableName}", parameters, commandType: CommandType.StoredProcedure);
-            // Trả về số bản ghi thêm mới được
+            var rowAffects = 0;
+            _dbConnection.Open();
+            using (var transaction = _dbConnection.BeginTransaction())
+            {
+                try
+                {
+                    //Mapping type of data
+                    var parameters = MappingDBType(entity);
+                    //Excute commandText
+                    rowAffects = _dbConnection.Execute($"Proc_Update{_tableName}ById", parameters, commandType: CommandType.StoredProcedure);
+                    //Return number of record have been inserted
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                }
+            }
+
             return rowAffects;
         }
+        //public int Update(TEntity entity)
+        //{
+        //    // Khởi tạo kết nối với Db:
+        //    var parameters = MappingDBType(entity);
+        //    // Thực thi commandText
+        //    var rowAffects = _dbConnection.Execute($"Proc_Update{_tableName}", parameters, commandType: CommandType.StoredProcedure);
+        //    // Trả về số bản ghi thêm mới được
+        //    return rowAffects;
+        //}
 
 
         /// <summary>

@@ -8,8 +8,8 @@ namespace MISA.ApplicationCore.Services
 {
     public class EmployeeService : BaseService<Employee>, IEmployeeService
     {
-        IBaseRepository<Employee> _employeeRepository;
-        public EmployeeService(IBaseRepository<Employee> employeeRepository) : base(employeeRepository)
+        IEmployeeRepository _employeeRepository;
+        public EmployeeService(IEmployeeRepository employeeRepository) : base(employeeRepository)
         {
             _employeeRepository = employeeRepository;
         }

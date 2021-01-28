@@ -13,7 +13,6 @@ namespace MISA.Infrastructure
 {
     public class EmployeeRepository : BaseRepository<Employee>, IEmployeeRepository
     {
-        IEmployeeRepository _employeeRepository;
         public EmployeeRepository(IConfiguration configuration) : base(configuration)
         {
 

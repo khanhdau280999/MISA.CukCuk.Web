@@ -118,3 +118,20 @@
     border-bottom : 3px solid;
     border-bottom-color:  #019160;
 }
+
+.m-dialog .border-bot {
+    margin-top: 5px;
+    width: 70px;
+    height: 3px;
+    background-color: #019160;
+    margin-bottom:10px;
+}
+
+
+.dialog-title {
+    margin-top:10px;
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+

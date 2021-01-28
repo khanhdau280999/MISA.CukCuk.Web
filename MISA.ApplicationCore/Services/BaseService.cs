@@ -162,27 +162,8 @@ namespace MISA.ApplicationCore.Services
 
             }
             _serviceResult.Data = mesArrayError;
-
-            var isValidCustom = ValidateCustom(entity);
-            if (!isValidCustom)
-            {
-                isValidate = false;
-            }
-
             return isValidate;
         }
-
-
-        /// <summary>
-        /// Hàm thực hiện kiểm tra dữ liệu/ nghiệp vụ tùy chỉnh
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        protected virtual bool ValidateCustom(TEntity entity)
-        {
-            return true;
-        }
-
         public List<TEntity> GetEntitiesFilter(string specs, Guid? departmentId, Guid? positionId)
         {
             return _baseRepository.GetEntitiesFilter(specs, departmentId, positionId);
