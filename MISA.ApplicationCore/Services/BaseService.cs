@@ -118,7 +118,7 @@ namespace MISA.ApplicationCore.Services
                 if (property.IsDefined(typeof(Required), false))
                 {
                     // Check bắt buộc nhập:
-                    if (propertyValue == null)
+                    if (propertyValue == null || propertyValue.ToString().Trim() == "")
                     {
                         isValidate = false;
                         mesArrayError.Add(string.Format(Properties.Resources.Msg_Required, displayName));
@@ -148,25 +148,34 @@ namespace MISA.ApplicationCore.Services
                     var attributeMaxLength = (property.GetCustomAttributes(typeof(MaxLength), true)[0]);
                     var length = (attributeMaxLength as MaxLength).Value;
                     var msg = (attributeMaxLength as MaxLength).ErrorMsg;
-
-                    if (propertyValue.ToString().Trim().Length > length)
+                    if(propertyValue != null)
                     {
-                        isValidate = false;
-                        mesArrayError.Add(msg ?? string.Format(Properties.Resources.Msg_MaxLengthError, length));
-                        _serviceResult.MISACode = Enums.MISACode.NotValid;
-                        _serviceResult.Messenger = Properties.Resources.Msg_IsNotValid;
+                        if (propertyValue.ToString().Trim().Length > length)
+                        {
+                            isValidate = false;
+                            mesArrayError.Add(msg ?? string.Format(Properties.Resources.Msg_MaxLengthError, length));
+                            _serviceResult.MISACode = Enums.MISACode.NotValid;
+                            _serviceResult.Messenger = Properties.Resources.Msg_IsNotValid;
+                        }
                     }
-
                 }
-
-
             }
             _serviceResult.Data = mesArrayError;
+            if (isValidate == true)
+            {
+                isValidate = ValidateCustom(entity);
+            }
             return isValidate;
         }
-        public List<TEntity> GetEntitiesFilter(string specs, Guid? departmentId, Guid? positionId)
+
+        /// <summary>
+        /// Function used to check data custom
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        protected virtual bool ValidateCustom(TEntity entity)
         {
-            return _baseRepository.GetEntitiesFilter(specs, departmentId, positionId);
+            return true;
         }
     }
 }

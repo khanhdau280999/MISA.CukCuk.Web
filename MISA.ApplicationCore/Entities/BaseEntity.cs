@@ -61,10 +61,10 @@ namespace MISA.ApplicationCore.Entities
     {
         public int Value { get; set; }
         public string ErrorMsg { get; set; }
-        public MaxLength(int length, string errorMsg = null)
+        public MaxLength(int length = 0, string errorMsg = null)
         {
             this.Value = length;
-            this.ErrorMsg = ErrorMsg;
+            this.ErrorMsg = errorMsg;
         }
     }
 

@@ -45,6 +45,5 @@ namespace MISA.ApplicationCore.Interfaces
         /// <returns></returns>
         /// CreatedBy: PQKHANH 23/01/2021
         ServiceResult Delete(Guid entityId);
-        List<TEntity> GetEntitiesFilter(string specs, Guid? departmentId, Guid? positionId);
     }
 }
