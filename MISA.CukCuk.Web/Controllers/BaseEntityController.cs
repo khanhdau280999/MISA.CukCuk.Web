@@ -56,12 +56,6 @@ namespace MISA.CukCuk.Web.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] TEntity entity)
         {
-            //var serviceResult = _baseService.Add(entity);
-            //if (serviceResult.MISACode == MISACode.NotValid)
-            //{
-            //    return BadRequest(serviceResult);
-            //}
-            //return Created("Add",serviceResult);
             var rowAffects = _baseService.Add(entity);
             if (rowAffects.MISACode == MISACode.NotValid)
             {
@@ -75,13 +69,6 @@ namespace MISA.CukCuk.Web.Controllers
         [HttpPut("{id}")]
         public IActionResult Put([FromRoute]string id, [FromBody] TEntity entity)
         {
-            //var serviceResult = _baseService.Update(id, entity);
-            //if (serviceResult.MISACode == MISACode.NotValid)
-            //{
-            //    return BadRequest(serviceResult);
-            //}
-            //return Ok(serviceResult);
-
             var keyProperty = entity.GetType().GetProperty($"{typeof(TEntity).Name}Id");
             if (keyProperty.PropertyType == typeof(Guid))
             {
@@ -116,12 +103,5 @@ namespace MISA.CukCuk.Web.Controllers
             }
             return Ok(serviceResult);
         }
-
-        [HttpGet("filter")]
-        public IActionResult GetEntitiesFilter([FromQuery] string specs, [FromQuery] Guid? departmentId, [FromQuery] Guid? positionId)
-        {
-            return Ok(_baseService.GetEntitiesFilter(specs, departmentId, positionId));
-        }
-
     }
 }

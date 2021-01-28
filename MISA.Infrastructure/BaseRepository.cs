@@ -20,48 +20,51 @@ namespace MISA.Infrastructure
         string _connectionString = string.Empty;
         protected IDbConnection _dbConnection = null;
         protected string _tableName = typeof(TEntity).Name;
-        string _paramName = string.Empty;
         #endregion
+
+        #region Constructor
         public BaseRepository(IConfiguration configuration)
         {
             _configuration = configuration;
             _connectionString = _configuration.GetConnectionString("DefaultConnectionString");
             _dbConnection = new MySqlConnection(_connectionString);
-            _paramName = $"{_tableName}Id";
         }
+        #endregion
         public int Add(TEntity entity)
         {
             var rowAffects = 0;
             _dbConnection.Open();
             using (var transaction = _dbConnection.BeginTransaction())
             {
-                var parameters = MappingDBType(entity);
-                // Thực thi commandText
-                rowAffects = _dbConnection.Execute($"Proc_Insert{_tableName}", parameters, commandType: CommandType.StoredProcedure);
-                // Trả về số bản ghi thêm mới được
-                transaction.Commit();
-            }
-            return rowAffects;
+                try
+                {
+                    //Mapping type of data
+                    var parameters = MappingDBType(entity);
+                    //Excute commandText
+                    rowAffects = _dbConnection.Execute($"Proc_Insert{_tableName}", parameters, commandType: CommandType.StoredProcedure);
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                }
 
-            //var parameters = MappingDBType(entity);
-            //var rowAffected = _dbConnection.Execute($"Proc_Insert{_tableName}", parameters, commandType: CommandType.StoredProcedure);
-            //return rowAffected;
+            }
+            //Return number of record have been inserted
+            return rowAffects;
 
         }
 
         public int Delete(Guid entityId)
         {
-            //var res = 0;
-            //_dbConnection.Open();
-            //using (var transaction = _dbConnection.BeginTransaction())
-            //{
-            //    var rowAffected = _dbConnection.Execute($"Delete from {_tableName} where {_tableName}Id = '{entityId.ToString()}'", commandType: CommandType.Text);
-            //    transaction.Commit();
-            //}
-            //return res;
-
-            var rowAffected = _dbConnection.Execute($"Delete from {_tableName} where {_tableName}Id = '{entityId}'", commandType: CommandType.Text);
-            return rowAffected;
+            var res = 0;
+            _dbConnection.Open();
+            using (var transaction = _dbConnection.BeginTransaction())
+            {
+                res = _dbConnection.Execute($"DELETE FROM {_tableName} WHERE {_tableName}Id = '{entityId.ToString()}'", commandType: CommandType.Text);
+                transaction.Commit();
+            }
+            return res;
 
         }
 
@@ -76,10 +79,15 @@ namespace MISA.Infrastructure
 
         public TEntity GetEntityById(Guid entityId)
         {
-            DynamicParameters id = new DynamicParameters();
-            id.Add(_paramName, entityId.ToString());
-            var res = _dbConnection.Query<TEntity>($"Proc_Get{_tableName}ById", id, commandType: CommandType.StoredProcedure).FirstOrDefault();
-            return res;
+            //DynamicParameters id = new DynamicParameters();
+            //id.Add(_paramName, entityId.ToString());
+            //var res = _dbConnection.Query<TEntity>($"Proc_Get{_tableName}ById", id, commandType: CommandType.StoredProcedure).FirstOrDefault();
+            //return res;
+
+            //Create commandText
+            var entity = _dbConnection.QueryFirstOrDefault<TEntity>($"SELECT * FROM {_tableName} WHERE {_tableName}Id = '{entityId.ToString()}' LIMIT 1", commandType: CommandType.Text);
+            //Return data
+            return entity;
         }
 
 
@@ -106,15 +114,6 @@ namespace MISA.Infrastructure
 
             return rowAffects;
         }
-        //public int Update(TEntity entity)
-        //{
-        //    // Khởi tạo kết nối với Db:
-        //    var parameters = MappingDBType(entity);
-        //    // Thực thi commandText
-        //    var rowAffects = _dbConnection.Execute($"Proc_Update{_tableName}", parameters, commandType: CommandType.StoredProcedure);
-        //    // Trả về số bản ghi thêm mới được
-        //    return rowAffects;
-        //}
 
 
         /// <summary>
@@ -166,18 +165,18 @@ namespace MISA.Infrastructure
             return entityReturn;
         }
 
-        public List<TEntity> GetEntitiesFilter(string specs, Guid? departmentId, Guid? positionId)
-        {
-            var input = specs ?? string.Empty;
-            var parameters = new DynamicParameters();
-            parameters.Add($"@{_tableName}Code", input, DbType.String);
-            parameters.Add("@FullName", input, DbType.String);
-            parameters.Add("@PhoneNumber", input, DbType.String);
-            parameters.Add("@DepartmentId", departmentId, DbType.String);
-            parameters.Add("@PositionId", positionId, DbType.String);
-            var entity = _dbConnection.Query<TEntity>($"Proc_Get{_tableName}Filter", parameters, commandType: CommandType.StoredProcedure).ToList();
-            return entity;
-        }
+        //public List<TEntity> GetEntitiesFilter(string specs, Guid? departmentId, Guid? positionId)
+        //{
+        //    var input = specs ?? string.Empty;
+        //    var parameters = new DynamicParameters();
+        //    parameters.Add($"@{_tableName}Code", input, DbType.String);
+        //    parameters.Add("@FullName", input, DbType.String);
+        //    parameters.Add("@PhoneNumber", input, DbType.String);
+        //    parameters.Add("@DepartmentId", departmentId, DbType.String);
+        //    parameters.Add("@PositionId", positionId, DbType.String);
+        //    var entity = _dbConnection.Query<TEntity>($"Proc_Get{_tableName}Filter", parameters, commandType: CommandType.StoredProcedure).ToList();
+        //    return entity;
+        //}
 
         public void Dispose()
         {

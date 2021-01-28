@@ -8,11 +8,20 @@ namespace MISA.ApplicationCore.Interfaces
     public interface IEmployeeRepository : IBaseRepository<Employee>
     {
         /// <summary>
-        /// Lấy dữ liệu theo mã nhân viên
+        /// Filter employee by multiple conditions
         /// </summary>
-        /// <param name="employeeCode"></param>
-        /// <returns></returns>
-        /// CreatedBy: PQKHANH 23/01/2021
-        Employee GetEmployeeByCode(string employeeCode);
+        /// <param name="inputValue">employeeCode, fullName, phoneNumber</param>
+        /// <param name="departmentId"></param>
+        /// <param name="positionId"></param>
+        /// <returns>List employee</returns>
+        /// createdBy: pqkhanh(28/1/2021)
+        List<Employee> FilterEmployee(string inputValue, Guid? departmentId, Guid? positionId);
+
+        /// <summary>
+        /// Get max number only in employee code
+        /// </summary>
+        /// <returns>Only number in employee code</returns>
+        /// createdBy: pqkhanh (28/1/2021)
+        double GetMaxEmployeeCode();
     }
 }
