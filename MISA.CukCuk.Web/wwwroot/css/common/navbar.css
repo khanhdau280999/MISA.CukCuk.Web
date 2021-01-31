@@ -1,42 +1,41 @@
-﻿.navbar {
-    position:relative;
+.navbar {
     float: left;
     width: 220px;
     height: 100vh;
-    background-color: #ffffff;
-    border-right: 1px solid #bbbbbb;
+    background-color: #FFFFFF;
+    border-right: 1px solid #E5E5E5;
 }
 
     .navbar .logo-site {
         display: flex;
         width: 100%;
-        align-items:center;
-        height: 60px;
+        height: 70px;
+        align-items: center;
     }
 
     .navbar .logo-box {
         display: flex;
         position: absolute;
-        width: 100%;
-        left: 24px;
-        cursor:pointer;
+        top: 13px;
+        left: 12px;
+        width: 202px;
+        height: 46px;
     }
         /*Logo page*/
-        .navbar .logo-box .toggle-icon {
-            width: 30px;
-            height: 30px;
+        .navbar .logo-box .toogle-icon {
+            width: 32px;
+            height: 32px;
             background-image: url('/content/img/toggle.png');
             background-size: contain;
-
+            margin-top: 4px;
             background-repeat: no-repeat;
         }
 
-        .navbar .logo-box .amis-logo {
-            width: 100%;
-            height: 30px;
-            margin-left:10px;
+        .navbar .logo-box .cukcuk-logo {
+            width: 170px;
+            height: 40px;
+            margin-left: 7px;
             background-image: url('/content/img/cukcuk-logo.png');
-            background-position: 0 center;
             background-size: contain;
             background-repeat: no-repeat;
         }
@@ -51,39 +50,33 @@
             height: 44px;
             cursor: pointer;
             line-height: 44px;
+            color: #000000;
+            text-decoration: none;
         }
 
             .navbar .navbar-content .nav-item:hover {
-                background-color: #e5e5e5;
+                background-color: #E5E5E5;
                 color: #000000;
             }
-            .navbar .navbar-content .nav-item:focus {
-                background-color: #019160;
-            }
-            .navbar .navbar-content .nav-item:active {
-                background-color: #019160;
-            }
-
-            .nav-item .nav-item-icon {
-                width: 20px;
-                height: 20px;
-                align-self: center;
-                margin-right: 10px;
-                background-size: contain;
-            }
-
-.nav-item-icon-overviews {
+.nav-item .nav-item-icon {
+    width: 20px;
+    height: 20px;
+    align-self: center;
+    margin-right: 10px;
+    background-size: contain;
+}
+.nav-icon1 {
     background-image: url('/content/icon/dashboard.png');
 }
-
-.nav-icon-reports {
+.nav-icon2 {
     background-image: url('/content/icon/report.png');
 }
-
-.nav-icon-categories-employee {
+.nav-icon3 {
     background-image: url('/content/icon/dic-employee.png');
 }
-
-.nav-icon-config-system {
+.nav-icon4 {
     background-image: url('/content/icon/setting.png');
+}
+.row-selected{
+    background-color: #019160;
 }

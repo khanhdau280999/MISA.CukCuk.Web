@@ -1,29 +1,47 @@
-﻿/*Grid*/
 .grid {
-    width: 100%;
-    overflow-x: auto;
-    overflow-y: auto;
-}
-table th,td{
-    border-bottom:1px solid #bbbbbb;
-    padding-left:16px;
-    padding-right:16px;
-    padding:10px 16px;
-    text-align:left;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
-}
-/*table td span {
-    width:100px;
-    overflow:hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}*/
-.grid .grid-header {
-    height: 50px;
+    height: calc(100vh - 190px);
+    overflow: auto;
+    padding-left: 16px;
+    padding-right: 16px;
+    text-align: left;
 }
 
-.grid .grid-content, .tablescroll_wrapper, .tablescroll {
-    height: calc(100% - 25px);
-}
+    .grid::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    .grid::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+
+    .grid .table-grid {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        .grid .table-grid thead tr th {
+            height: 40px;
+            position: sticky;
+            padding-left: 16px;
+            padding-right: 16px;
+            top: 0;
+            background-color: #ffffff;
+        }
+
+        .grid .table-grid tbody tr:nth-child(even) {
+            background-color: #E9EBEE;
+        }
+
+        .grid .table-grid tbody tr td {
+            height: 40px;
+            padding-right: 16px;
+            padding-left: 16px;
+            max-width: 100px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .grid .table-grid tbody tr:hover {
+            background-color: #0191605c;
+        }

@@ -1,0 +1,161 @@
+.dialog-detail {
+    position: relative;
+}
+
+.show-dialog {
+    opacity: 1;
+    visibility: visible;
+}
+
+.hide-dialog {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.dialog-detail .dialog-modal {
+    opacity: .5;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: black;
+    z-index: 999;
+}
+
+.dialog-detail .dialog-content {
+    position: fixed;
+    width: 700px;
+    height: 556px;
+    top: 50%;
+    left: 50%;
+    margin-top: -278px;
+    margin-left: -350px;
+    background-color: #FFFFFF;
+    z-index: 9999;
+    border-radius: 5px;
+}
+
+    .dialog-detail .dialog-content .dialog-header {
+        display: flex;
+        padding: 24px 24px 0px 24px;
+    }
+
+        .dialog-detail .dialog-content .dialog-header .dialog-header-title {
+            font-size: 20px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .dialog-detail .dialog-content .dialog-header .dialog-header-close {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+            .dialog-detail .dialog-content .dialog-header .dialog-header-close:hover {
+                border-radius: 5px;
+            }
+
+            .dialog-detail .dialog-content .dialog-header .dialog-header-close button {
+                width: 40px;
+                height: 40px;
+                border-radius: 0 5px 0 0;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                background-color: #FFFFFF;
+                background-repeat: no-repeat;
+                background-image: url('/content/icon/x.svg');
+                background-position: center;
+                background-size: 20px;
+                opacity: 0.7;
+            }
+
+    .dialog-detail .dialog-content .dialog-body .head-body {
+        display: flex;
+        padding: 12px 24px 12px 24px;
+        width: calc(100% - 48px);
+        height: auto;
+        position: absolute;
+        top: 50px;
+    }
+    
+        .dialog-detail .dialog-content .dialog-body .head-body .head-body-left .dialog-avatar {
+            border: 1px solid #ccc;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto;
+            border-radius: 50%;
+            cursor: pointer;
+            background-image: url(/content/img/default-avatar.jpg);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+
+        .dialog-detail .dialog-content .dialog-body .head-body .head-body-center {
+            margin-left: 16px;
+        }
+
+        .dialog-detail .dialog-content .dialog-body .head-body .space {
+            margin-top: 4px;
+        }
+
+        .dialog-detail .dialog-content .dialog-body .head-body .down {
+            margin-top: 16px;
+        }
+
+        .dialog-detail .dialog-content .dialog-body .head-body .head-body-right {
+            margin-left: 16px;
+        }
+
+    .dialog-detail .dialog-content .dialog-body .foot-body {
+        padding: 2px 24px 12px 24px;
+        width: calc(100% - 48px);
+        height: 190px;
+        position: absolute;
+        top: 290px;
+    }
+
+        .dialog-detail .dialog-content .dialog-body .foot-body .foot-right {
+            margin-left: 16px;
+            float: left;
+        }
+
+        .dialog-detail .dialog-content .dialog-body .foot-body .foot-left {
+            float: left;
+        }
+
+        .dialog-detail .dialog-content .dialog-body .foot-body .foot-bottom {
+            float: left;
+        }
+
+            .dialog-detail .dialog-content .dialog-body .foot-body .foot-bottom input {
+                width: 600px;
+            }
+
+        .dialog-detail .dialog-content .dialog-body .foot-body .foot-left input {
+            width: 380px;
+        }
+
+    .dialog-detail .dialog-content .dialog-footer {
+        padding: 12px 24px 22px 24px;
+        width: calc(100% - 48px);
+        height: 30px;
+        position: absolute;
+        background: #E5E5E5;
+        border-radius: 5px;
+        top: 492px;
+    }
+
+        .dialog-detail .dialog-content .dialog-footer button {
+            float: right;
+            margin-right: 16px;
+        }
+
+.title-body-dialog {
+    margin-top: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+}

@@ -1,119 +1,52 @@
-﻿.text-align-right{
-    text-align:right;
+.loading{
+    display: none;
 }
+
 .text-align-center {
     text-align: center;
 }
 
-a {
-    text-decoration:none;
-    color:#000000;
+.text-align-right {
+    text-align: right;
 }
-.m-row{
-    margin-top:16px;
-
+.red-color{
+    color: #FF0000;
 }
-
-.m-flex-1 {
-    flex: 1;
-}
-
-.m-flex-2 {
-    flex: 2;
-}
-
-.m-flex-3 {
-    flex: 3;
-}
-.m-lable{
-    bottom:4px;
-}
-.m-flex {
-    display: flex;
-}
-
-.mg-left-10px {
-    margin-left: 10px;
-}
-
-.mg-left-20px {
-    margin-left: 20px;
-}
-
-.mg-top-0 {
-    margin-top: 0px;
-}
-
-.label-required {
-    color: #ff0000;
-}
-
-.display-block{
-    display:block;
-}
-
-
-.notice-required{
-    display:none;
-    position:absolute;
-    background-color:#FF4747;
-    color:#ffffff;
-    top:0;
-    padding:5px;
-    border-radius:5px;
-}
-
-.notice-required-abow{
-    display: block;
-    width:10px;
-    height:10px;
-    position:absolute;
-    background-color:#FF4747;
-    transform: rotate(45deg);
-    left:50%;
-}
-
-input[required]::after {
-    display: block;
-    width: 10px;
-    height: 10px;
-    position: absolute;
-    background-color: #FF4747;
-    transform: rotate(45deg);
-    left: 50%;
-    content:"Thông tin";
+.margin-top{
+    margin-top: 10px;
 }
 
 input.border-red{
-    border:1px solid #FF4747;
+    border: 1px solid #FF0000;
 }
 
-.loading{
-    display:none;
-}
-.loading-model{
-    position:fixed;
-    top:0;
-    left:0;
-    bottom:0;
-    right:0;
-    background-color:#000;
-    opacity:.5;
-    z-index:999;
+.loading-modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: #808080;
+    opacity: 0.5;
+    z-index: 100000;
 }
 .loading-icon {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
     position: fixed;
+    border-radius: 50px;
     top: calc(50% - 15px);
     left: calc(50% - 15px);
-    border: 2px solid #019160;
-    border-bottom: none;
+    border: 5px solid #f3f3f3; 
+    border-top: 5px solid #019160;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
     animation: spin 2s linear infinite;
 }
-.row-selected {
-    background-color: #01916026 !important;
+
+.hr-group-label {
+    width: 70px;
+    margin-left: 0;
+    border: 2px solid #019160;
 }
 
 @keyframes spin {
@@ -125,20 +58,3 @@ input.border-red{
         transform: rotate(360deg);
     }
 }
-
-.box-toast-msg {
-    display: none;
-    position: fixed;
-    background-color: #ffffff;
-    padding: 24px;
-    color: #019160;
-    font-size: 20px;
-    bottom: 24px;
-    text-align: center;
-    right: 24px;
-    border: 1px solid #ccc;
-}
-.select-width{
-     width: 200px;
- }
- 
