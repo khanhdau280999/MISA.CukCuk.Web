@@ -1,14 +1,33 @@
-﻿input, select{
-    padding:10px 16px;
-    border-radius:4px;
+input, select {
+    padding: 10px 16px;
+    border-radius: 4px;
     outline: none;
-    border: 1px solid #bbbbbb;
+    border: 1px solid #BBBBBB;
+}
+    input:focus, select:focus {
+        border-color: #019160;
+    }
+
+    input:placeholder {
+        font-size: 11px;
+    }
+
+.input-search {
+    padding-left: 40px;
+}
+#cbxCustomerGroup {
+    width: 203px;
+    height: 37px;
+    border-radius: 4px;
+    border: 1px solid #BBBBBB;
+    outline: none;
 }
 
-input::placeholder{
-    font-size:11px;
+.base-input {
+    width: 175px;
+    height: 17px;
 }
 
-.input-search{
-    padding-left:40px;
+option:hover {
+    background-color: #019160;
 }

@@ -2,110 +2,112 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>MISA CukCuk - Phần mềm quản lý nhà hàng</title>
-    <link href="/lib/jquery-ui-1.12.1.custom/jquery-ui.css" rel="stylesheet" />
-    <link href="/css/common/main.css" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/jpg" href="/content/icon/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Phần mềm quản lý nhà hàng CukCuk</title>
     <link href="/css/common/common.css" rel="stylesheet" />
+    <link href="/css/common/main.css" rel="stylesheet" />
+    <link href="/css/common/header.css" rel="stylesheet" />
+    <link href="/css/common/navbar.css" rel="stylesheet" />
+    <link href="/css/common/main-dialog.css" rel="stylesheet" />
     <link href="/css/common/dialog.css" rel="stylesheet" />
-    <link href="/css/common/ui-custom.css" rel="stylesheet" />
+    <link href="/css/common/alert.css" rel="stylesheet" />
+    <link href="/css/common/jnoty.css" rel="stylesheet" />
+    <link href="/css/common/content.css" rel="stylesheet" />
     <link href="/css/common/icon.css" rel="stylesheet" />
     <link href="/css/common/button.css" rel="stylesheet" />
+    <link href="/css/common/radio.css" rel="stylesheet" />
     <link href="/css/common/input.css" rel="stylesheet" />
     <link href="/css/common/toolbar.css" rel="stylesheet" />
     <link href="/css/common/grid.css" rel="stylesheet" />
-    <link href="/css/common/header.css" rel="stylesheet" />
-    <link href="/css/common/navbar.css" rel="stylesheet" />
-    <link href="/css/common/content.css" rel="stylesheet" />
     <link href="/css/page/employee.css" rel="stylesheet" />
 </head>
 <body>
     <div class="navbar">
         <div class="logo-site">
             <div class="logo-box">
-                <div class="toggle-icon"></div>
-                <div class="amis-logo"></div>
+                <div class="toogle-icon"></div>
+                <div class="cukcuk-logo"></div>
             </div>
         </div>
         <div class="navbar-content">
             <a class="nav-item">
-                <div class="nav-item-icon nav-item-icon-overviews"></div>
-                <div class="nav-item-text">Tổng quan</div>
+                <div class="nav-item-icon nav-icon1"></div>
+                <div class="nav-item-text">Tổng quát</div>
             </a>
             <a class="nav-item">
-                <div class="nav-item-icon nav-icon-reports"></div>
+                <div class="nav-item-icon nav-icon2"></div>
                 <div class="nav-item-text">Báo cáo</div>
             </a>
             <a class="nav-item">
-                <div class="nav-item-icon nav-item-icon-overviews"></div>
+                <div class="nav-item-icon nav-icon1"></div>
                 <div class="nav-item-text">Mua hàng</div>
             </a>
-            <a class="nav-item" href="customer.html">
-                <div class="nav-item-icon nav-icon-categories-employee"></div>
-                <div class="nav-item-text">danh mục khách hàng</div>
-            </a>
             <a class="nav-item" href="employee.html">
-                <div class="nav-item-icon nav-icon-categories-employee"></div>
-                <div class="nav-item-text">danh mục nhân viên</div>
+                <div class="nav-item-icon nav-icon3"></div>
+                <div class="nav-item-text">Danh mục nhân viên</div>
+            </a>
+            <a class="nav-item" href="customer.html">
+                <div class="nav-item-icon nav-icon3"></div>
+                <div class="nav-item-text">Danh mục khách hàng</div>
             </a>
             <a class="nav-item">
-                <div class="nav-item-icon nav-icon-config-system"></div>
+                <div class="nav-item-icon nav-icon4"></div>
                 <div class="nav-item-text">Thiết lập hệ thống</div>
             </a>
         </div>
     </div>
     <div class="header">
-        <div class="department-info">
+        <div class="header-left">
             <select>
-                <option value="">Nhà hàng biển đông</option>
-                <option value="">Biển Ta</option>
-                <option value="">Biển Bắc</option>
-                <option value="">Biển Nam</option>
+                <option>Nhà hàng Biển Đông</option>
+                <option>Nhà hàng Đại Dương</option>
             </select>
         </div>
-        <div class="account-info">
-            <div class="account-avatar"></div>
-            <div class="account-name">Phú Quốc Khánh</div>
-            <div class="account-option icon-option"></div>
+        <div class="header-right">
+            <div class="avatar-default"></div>
+            <div class="name-default">Phú Quốc Khánh</div>
+            <div class="option-default"></div>
         </div>
     </div>
     <div class="content">
         <div class="header-content">
             <div class="title">Danh sách nhân viên</div>
             <div class="content-feature">
-                <button id="btnAdd" class="m-btn">
-                    <div class="m-btn-icon icon-add"></div>
-                    <div class="btn-text">Thêm nhân viên</div>
+                <button id="button-add" class="button-default">
+                    <div class="icon-add"></div>
+                    <div class="button-text">Thêm nhân viên</div>
                 </button>
             </div>
         </div>
         <div class="filter-bar">
             <div class="filter-left">
-                <input class="icon-search input-search" style="width:230px" type="text" placeholder="Tìm kiếm theo Mã, Tên hoặc Số điện thoại" />
-                <select class="mg-left-10px" style="width:200px">
-                    <option>Tất cả phòng ban</option>
+                <input id="txtSearchEmployee" class="icon-search input-search" type="text" style="width: 270px; height: 17px;" placeholder="Tìm kiếm theo Mã, Tên hoặc Số điện thoại" />
+                <select class="cbxFilter1" fieldName="DepartmentName" fieldValue="DepartmentId" api="/api/v1/departments" style="margin-left: 10px">
+                    <option value="" default="true">Tất cả phòng ban</option>
                 </select>
-                <select class="mg-left-20px" style="width:200px">
-                    <option>Tất cả vị trí</option>
+                <select class="cbxFilter2" fieldName="PositionName" fieldValue="PositionId" api="/api/v1/positions" style="margin-left: 10px">
+                    <option value="" default="true">Tất cả vị trí</option>
                 </select>
             </div>
             <div class="filter-right">
-                <button id="btnRefresh" class="m-second-button m-btn-refresh">
+                <button id="button-refresh" class="second-button button-refresh">
                 </button>
             </div>
         </div>
-        <div class="grid grid-employee">
-            <table border="0" width="100%" cellspacing="0">
-                <thead class="fixedHeader">
+        <div class="grid">
+            <table class="table-grid" border="0" cellspacing="0" width="100%">
+                <thead>
                     <tr>
                         <th fieldName="EmployeeCode">Mã nhân viên</th>
                         <th fieldName="FullName">Họ và tên</th>
                         <th fieldName="Gender" formatType="Gender">Giới tính</th>
-                        <th fieldName="DateOfBirth" formatType="ddmmyyyy" style="text-align:center">Ngày sinh</th>
-                        <th fieldName="PhoneNumber">Số điện thoại</th>
+                        <th fieldName="DateOfBirth" formatType="ddmmyyyy">Ngày sinh</th>
+                        <th fieldName="PhoneNumber">Điện thoại</th>
                         <th fieldName="Email">Email</th>
                         <th fieldName="PositionName">Chức vụ</th>
                         <th fieldName="DepartmentName">Phòng ban</th>
-                        <th fieldName="Salary" formatType="MoneyVND">Mức lương cơ bản</th>
+                        <th fieldName="Salary" formatType="Money">Mức lương hiện tại</th>
                         <th fieldName="WorkStatus" formatType="WorkStatus">Tình trạng công việc</th>
                     </tr>
                 </thead>
@@ -113,149 +115,115 @@
                 </tbody>
             </table>
         </div>
-        <div class="paging-bar">
-            <div class="paging-left-info">
-                Hiển thị <b>1-10/1000</b> nhân viên
-            </div>
-            <div class="paging-option">
-                <div class="btn-select-page m-btn-firstpage"></div>
-                <div class="btn-select-page m-btn-prev-page"></div>
-                <div class="m-btn-list-page">
-                    <button class="btn-pagenumber btn-pagenumber-selected">1</button>
-                    <button class="btn-pagenumber">2</button>
-                    <button class="btn-pagenumber">3</button>
-                    <button class="btn-pagenumber">4</button>
-                </div>
-                <div class="btn-select-page m-btn-next-page"></div>
-                <div class="btn-select-page m-btn-lastpage"></div>
-            </div>
-            <div class="paging-right-info">
-                <b>10</b> nhân viên/trang
-            </div>
-        </div>
     </div>
-    <div class="m-dialog" title="THÔNG TIN NHÂN VIÊN">
+    <div class="dialog-detail hide-dialog">
+        <div class="dialog-modal"></div>
         <div class="dialog-content">
+            <div class="dialog-header">
+                <div class="dialog-header-title">Thông tin nhân viên</div>
+                <div class="dialog-header-close">
+                    <button id="button-x"></button>
+                </div>
+            </div>
             <div class="dialog-body">
-                <div class="m-row m-flex">
-                    <div class="dialog-avatar-customer m-flex-1">
+                <div class="head-body">
+                    <div class="head-body-left">
                         <div class="dialog-avatar"></div>
-                        <div class="dialog-avatar-fontsize text-align-center">
-                            (Vui lòng chọn ảnh có định dạng <br><b>.jpg, .jpeg, .png, .gif.) </b>
+                        <div class="dialog-note text-align-center">
+                            Vui lòng chọn ảnh có định dạng <br><b>.jpg, .jpeg, .png, .gif. </b>
                         </div>
                     </div>
-                    <div class="m-flex-2">
-                        <div class="m-flex">
-                            <div class="dialog-title">A.THÔNG TIN CHUNG:</div>
+                    <div class="head-body-center">
+                        <div class="title-body-dialog">A. THÔNG TIN CHUNG:</div>
+                        <hr class="hr-group-label" />
+                        <div>
+                            <div>Mã nhân viên (<span class="red-color">*</span>)</div>
+                            <div class="space"><input id="txtEmployeeCode" class="input-required base-input" tabindex="1" fieldName="EmployeeCode" type="text" required /></div>
                         </div>
-                        <div class="border-bot"></div>
-
-                        <div class="m-flex">
-                            <div class="m-flex-1">
-                                <div>Mã nhân viên (<span class="label-required">*</span>)</div>
-                                <div><input id="txtEmployeeCode" fieldName="EmployeeCode" required class="input-required" type="text" /></div>
-                            </div>
-                            <div class="m-flex-1 mg-left-20px">
-                                <div>Họ và tên (<span class="label-required">*</span>)</div>
-                                <div>
-                                    <input id="txtFullName" fieldName="FullName" class="input-required" type="text" required />
-                                </div>
+                        <div class="down">
+                            <div>Ngày sinh</div>
+                            <div class="space"><input id="dtDateOfBirth" class="base-input" tabindex="3" fieldName="DateOfBirth" type="date" /></div>
+                        </div>
+                        <div class="down">
+                            <div>Số CMTND/Căn cước (<span class="red-color">*</span>)</div>
+                            <div class="space"><input id="txtIdentityNumber" class="input-required base-input" tabindex="5" fieldName="IdentityNumber" type="text" required /></div>
+                        </div>
+                        <div class="down">
+                            <div>Nơi cấp</div>
+                            <div class="space"><input id="txtIdentityPlace" class="base-input" tabindex="7" fieldName="IdentityPlace" type="text" /></div>
+                        </div>
+                        <div class="down">
+                            <div>Email (<span class="red-color">*</span>)</div>
+                            <div class="space"><input id="txtEmail" class="input-required base-input" tabindex="8" fieldName="Email" type="email" placeholder="example@domain.com" required /></div>
+                        </div>
+                        <div class="title-body-dialog" style="margin-top: 24px">B. THÔNG TIN CÔNG VIỆC:</div>
+                        <hr class="hr-group-label" />
+                        <div>
+                            <div>Vị trí</div>
+                            <div class="space">
+                                <select id="cbxPosition" tabindex="10" fieldName="PositionName" fieldValue="PositionId" api="/api/v1/positions" style="width: 209px">
+                                </select>
                             </div>
                         </div>
-
-                        <div class="m-row m-flex">
-                            <div class="m-flex-1">
-                                <div>Ngày sinh</div>
-                                <div><input id="dtDateOfBirth" fieldName="DateOfBirth" type="date" style="width:170px" /></div>
-                            </div>
-                            <div class="m-flex-1 mg-left-10px">
-                                <div class="m-label">Giới tính</div>
-                                <select class="select-width" id="cbxGender" fieldName="Gender" fieldValue="Gender">
+                        <div class="down">
+                            <div>Mã số thuế cá nhân</div>
+                            <div class="space"><input id="txtPersonalTaxCode" class="input-required base-input" tabindex="12" fieldName="PersonalTaxCode" type="text" /></div>
+                        </div>
+                        <div class="down">
+                            <div>Ngày gia nhập</div>
+                            <div class="space"><input id="dtJoinDate" class="base-input" tabindex="14" fieldName="JoinDate" type="date" /></div>
+                        </div>
+                    </div>
+                    <div class="head-body-right">
+                        <div>
+                            <div>Họ và tên (<span class="red-color">*</span>)</div>
+                            <div class="space"><input id="txtFullName" class="input-required base-input" tabindex="2" fieldName="FullName" type="text" required /></div>
+                        </div>
+                        <div class="down">
+                            <div>Giới tính</div>
+                            <div class="space">
+                                <select id="cbxGender" fieldValue="Gender" tabindex="4" style="width: 209px">
                                     <option value="1">Nam</option>
                                     <option value="0">Nữ</option>
                                     <option value="2">Khác</option>
                                 </select>
                             </div>
                         </div>
-
-                        <div class="m-row m-flex">
-                            <div class="m-flex-1">
-                                <div>Số CMTND/Căn cước (<span class="label-required">*</span>)</div>
-                                <div><input id="txtIdentityNumber" fieldName="IdentityNumber" required class="input-required" type="text" /></div>
-                            </div>
-                            <div class="m-flex-1">
-                                <div>Ngày cấp</div>
-                                <div><input id="dtIdentityDate" fieldName="IdentityDate" type="date" style="width:170px" /></div>
-                            </div>
+                        <div class="down">
+                            <div>Ngày cấp</div>
+                            <div class="space"><input id="dtIdentityDate" class="base-input" tabindex="6" fieldName="IdentityDate" type="date" /></div>
                         </div>
-
-                        <div class="m-row m-flex">
-                            <div class="m-flex-1">
-                                <div>Nơi cấp</div>
-                                <div><input id="txtIdentityPlace" fieldName="IdentityPlace" type="text" /></div>
-                            </div>
+                        <div style="margin-top:91px">
+                            <div>Số điện thoại (<span class="red-color">*</span>)</div>
+                            <div class="space"><input id="txtPhoneNumber" class="input-required base-input" tabindex="9" fieldName="PhoneNumber" required /></div>
                         </div>
-
-                        <div class="m-row m-flex">
-                            <div class="m-flex-1">
-                                <div>Email (<span class="label-required">*</span>)</div>
-                                <div><input id="txtEmail" fieldName="Email" type="email" class="input-required" placeholder="example@domain.com" required /></div>
-                            </div>
-                            <div class="m-flex-1 mg-left-10px">
-                                <div>Số điện thoại (<span class="label-required">*</span>)</div>
-                                <div><input id="txtPhoneNumber" fieldName="PhoneNumber" class="input-required" type="tel" required /></div>
-                            </div>
-                        </div>
-
-                        <div class="m-flex"><div class="dialog-title">B.THÔNG TIN CÔNG VIỆC:</div></div>
-                        <div class="border-bot"></div>
-                        <div class="m-flex">
-                            <div class="m-flex-1">
-                                <div class="m-label">Vị trí</div>
-                                <select class="select-width" id="cbxPosition" fieldName="PositionId" fieldValue="PositionName" api="Positions">
-                                </select>
-                            </div>
-                            <div class="m-flex-1 mg-left-10px">
-                                <div class="m-label">Phòng ban</div>
-                                <select class="select-width" id="cbxDepartment" fieldName="DepartmentId" fieldValue="DepartmentName" api="Departments">
+                        <div style="margin-top: 59px">
+                            <div>Phòng ban</div>
+                            <div class="space">
+                                <select id="cbxDepartment" tabindex="11" fieldName="DepartmentName" fieldValue="DepartmentId" api="/api/v1/departments" style="width: 209px">
                                 </select>
                             </div>
                         </div>
-
-                        <div class="m-row m-flex">
-                            <div class="m-flex-1">
-                                <div class="m-label">Mã số thuế cá nhân</div>
-                                <div><input id="txtPersonalTaxCode" fieldName="PersonalTaxCode" type="text" /></div>
-                            </div>
-                            <div class="m-flex-1 mg-left-10px">
-                                <div class="m-label">Mức lương cơ bản</div>
-                                <div><input id="txtSalary" fieldName="Salary" type="text" /><span>(VNĐ)</span></div>
-                            </div>
+                        <div class="down">
+                            <div>Mức lương cơ bản</div>
+                            <div class="space"><input id="txtSalary" tabindex="13" fieldName="Salary" type="text" onkeyup="splitInDots(this)" style="text-align:right; padding-right: 45px; width: 146px; height: 17px;" /><span class="currency-for-input">(VNĐ)</span></div>
                         </div>
-
-                        <div class="m-row m-flex">
-                            <div class="m-flex-1">
-                                <div>Ngày gia nhập công ty</div>
-                                <div><input id="dtJoinDate" fieldName="JoinDate" type="date" style="width:170px" /></div>
-                            </div>
-
-                            <div class="m-flex-1 mg-left-10px">
-                                <div class="m-label">Tình trạng công việc</div>
-                                <select class="select-width" id="cbxWorkStatus" fieldName="WorkStatus" fieldValue="WorkStatus">
+                        <div class="down">
+                            <div>Tình trạng công việc</div>
+                            <div class="space">
+                                <select id="cbxWorkStatus" tabindex="15" fieldValue="WorkStatus" style="width: 209px">
                                     <option value="1">Đang làm việc</option>
                                     <option value="0">Đã nghỉ việc</option>
                                     <option value="2">Đang thử việc</option>
                                 </select>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="dialog-footer">
-                    <button id="btnDelete" class="m-second-button m-btn-delete">
-                    </button>
-                    <button id="btnCancel" class="m-btn">Hủy</button>
-                    <button id="btnSave" class="m-btn"><span class="btn-text">Lưu</span></button>
+                    <button id="button-save" class="m-btn" tabindex="16"><i class="far fa-save"></i><span class="btn-text">Lưu</span></button>
+                    <button id="button-cancel" class="m-btn m-btn-cancel" tabindex="17">Hủy</button>
+                    <button id="button-delete" class="m-btn m-btn-cancel" tabindex="18">Xóa</button>
                 </div>
             </div>
         </div>
@@ -264,10 +232,13 @@
         <div class="loading-modal"></div>
         <div class="loading-icon"></div>
     </div>
+
     <script src="/lib/jquery-3.5.1.min.js"></script>
-    <script src="/lib/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
     <script src="/js/common/common.js"></script>
     <script src="/js/common/base.js"></script>
+    <script src="/js/common/dialog.js"></script>
+    <script src="/js/common/jnoty.js"></script>
     <script src="/js/page/employee.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 </body>
 </html>
