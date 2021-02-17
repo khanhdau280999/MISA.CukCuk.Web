@@ -26,10 +26,14 @@
 
     /*Filter bar*/
     .content .filter-bar {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        height: 40px;
     }
     /*Paging bar*/
     .content .paging-bar {
-        height: 56px;
+        height: 95px;
         display: flex;
         align-items: center;
         justify-content: center;

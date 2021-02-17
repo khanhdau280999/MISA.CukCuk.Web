@@ -102,7 +102,7 @@ namespace MISA.Infrastructure
                     //Mapping type of data
                     var parameters = MappingDBType(entity);
                     //Excute commandText
-                    rowAffects = _dbConnection.Execute($"Proc_Update{_tableName}ById", parameters, commandType: CommandType.StoredProcedure);
+                    rowAffects = _dbConnection.Execute($"Proc_Update{_tableName}", parameters, commandType: CommandType.StoredProcedure);
                     //Return number of record have been inserted
                     transaction.Commit();
                 }
