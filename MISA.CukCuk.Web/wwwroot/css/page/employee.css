@@ -1,0 +1,31 @@
+.dialog-detail .dialog-content {
+    position: fixed;
+    width: 690px;
+    height: 814px;
+    top: 50%;
+    left: 50%;
+    margin-top: -407px;
+    margin-left: -345px;
+    background-color: #FFFFFF;
+    z-index: 9999;
+    border-radius: 5px;
+}
+
+    .dialog-detail .dialog-content .dialog-body .head-body .head-body-left {
+        margin-top: 15px;
+    }
+
+    .dialog-detail .dialog-content .dialog-body .head-body .head-body-right {
+        margin-top: 44px;
+    }
+
+    .dialog-detail .dialog-content .dialog-footer {
+        top: 751px;
+    }
+
+.currency-for-input {
+    position: absolute;
+    right: 43px;
+    line-height: 37px;
+    font-style: italic;
+}

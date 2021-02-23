@@ -7,11 +7,21 @@ namespace MISA.ApplicationCore.Interfaces
 {
     public interface IEmployeeRepository : IBaseRepository<Employee>
     {
-        //IEnumerable<Employee> GetEmployees();
-        //Employee GetEmployeeById(Guid employeeId);
-        //int AddEmployee(Employee employee);
-        //int UpdateEmployee(Employee employee);
-        //int DeleteEmployee(Guid employeeId);
-        Employee GetEmployeeByCode(string employeeCode);
+        /// <summary>
+        /// Filter employee by multiple conditions
+        /// </summary>
+        /// <param name="inputValue">employeeCode, fullName, phoneNumber</param>
+        /// <param name="departmentId"></param>
+        /// <param name="positionId"></param>
+        /// <returns>List employee</returns>
+        /// createdBy: pqkhanh(28/1/2021)
+        List<Employee> FilterEmployee(string inputValue, Guid? departmentId, Guid? positionId);
+
+        /// <summary>
+        /// Get max number only in employee code
+        /// </summary>
+        /// <returns>Only number in employee code</returns>
+        /// createdBy: pqkhanh (28/1/2021)
+        double GetMaxEmployeeCode();
     }
 }

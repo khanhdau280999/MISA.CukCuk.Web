@@ -19,6 +19,9 @@ namespace MISA.ApplicationCore
         {
             _customerRepository = customerRepository;
         }
+        #endregion
+
+        #region Method
 
         public IEnumerable<Customer> GetCustomerPaging(int limit, int offset)
         {

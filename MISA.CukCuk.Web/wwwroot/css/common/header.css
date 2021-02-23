@@ -1,0 +1,50 @@
+.header {
+    float: left;
+    width: calc(100% - 222px);
+    height: 70px;
+    border-bottom: 1px solid #E5E5E5;
+    display: flex;
+    align-items: center;
+}
+
+    .header .header-left {
+        padding-left: 16px;
+    }
+
+        .header .header-left select {
+            border: 0;
+            font-size: 15px;
+            font-family: GoogleSans-Bold;
+            padding-right: 10px;
+            cursor: pointer;
+        }
+        
+    .header .header-right {
+        position: absolute;
+        right: 16px;
+    }
+
+        .header .header-right .avatar-default {
+            float: left;
+            width: 35px;
+            height: 35px;
+            margin-right: 16px;
+            background-image: url('/content/icon/avatar-default.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .header .header-right .name-default {
+            float: left;
+            margin-right: 16px;
+            padding-top: 6px;
+        }
+
+        .header .header-right .option-default {
+            float: left;
+            width: 30px;
+            height: 30px;
+            background-image: url('/content/icon/option.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+        }

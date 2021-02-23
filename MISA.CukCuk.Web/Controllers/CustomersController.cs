@@ -20,10 +20,10 @@ namespace MISA.CukCuk.Web.Controllers
     /// </summary>
     public class CustomersController : BaseEntityController<Customer>
     {
-        ICustomerService _baseService;
-        public CustomersController(ICustomerService baseService) :base(baseService)
+        ICustomerService _customerService;
+        public CustomersController(ICustomerService customerService) :base(customerService)
         {
-            _baseService = baseService;
+            _customerService = customerService;
         }
     }
 }

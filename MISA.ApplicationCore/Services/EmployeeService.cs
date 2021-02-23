@@ -8,14 +8,29 @@ namespace MISA.ApplicationCore.Services
 {
     public class EmployeeService : BaseService<Employee>, IEmployeeService
     {
-        /// <summary>
-        /// Tiêm DI khử phụ thuộc
-        /// CreatedBy: PQKHANH (3/1/2021)
-        /// </summary>
-        IBaseRepository<Employee> _employeeRepository;
-        public EmployeeService(IBaseRepository<Employee> employeeRepository) : base(employeeRepository)
+        IEmployeeRepository _employeeRepository;
+        #region Constructor
+        public EmployeeService(IEmployeeRepository employeeRepository) : base(employeeRepository)
         {
             _employeeRepository = employeeRepository;
         }
+        #endregion
+
+        #region Method
+        protected override bool ValidateCustom(Employee entity)
+        {
+            return true;
+        }
+
+        public List<Employee> FilterEmployee(string inputValue, Guid? departmentId, Guid? positionId)
+        {
+            return _employeeRepository.FilterEmployee(inputValue, departmentId, positionId);
+        }
+
+        public double GetMaxEmployeeCode()
+        {
+            return _employeeRepository.GetMaxEmployeeCode();
+        }
+        #endregion
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MISA.ApplicationCore.Enums;
 using MISA.ApplicationCore.Interfaces;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -20,9 +21,9 @@ namespace MISA.CukCuk.Web.Controllers
         }
 
         /// <summary>
-        /// Lấy toàn bộ khách hàng
+        /// Lấy toàn bộ dữ liệu
         /// </summary>
-        /// <returns>Danh sách khách hàng</returns>
+        /// <returns>Danh sách dữ liệu</returns>
         /// CreatedBy : PQKHANH(31/12/2020)
         [HttpGet]
         public IActionResult Get()
@@ -51,11 +52,17 @@ namespace MISA.CukCuk.Web.Controllers
         /// </summary>
         /// <param name="customer">objec khách hàng</param>
         /// <returns>kết quả số bản ghi bị ảnh hưởng</returns>
+        /// CreatedBy: PQKHANH(31/12/2020)
         [HttpPost]
-        public IActionResult Post(TEntity entity)
+        public IActionResult Post([FromBody] TEntity entity)
         {
             var rowAffects = _baseService.Add(entity);
-            return Ok(rowAffects);
+            if (rowAffects.MISACode == MISACode.NotValid)
+            {
+                return BadRequest(rowAffects);
+            }
+            else
+                return Ok(rowAffects);
         }
 
         // PUT api/<CustomersController>/5
@@ -76,16 +83,25 @@ namespace MISA.CukCuk.Web.Controllers
                 keyProperty.SetValue(entity, id);
             }
             var rowAffects = _baseService.Update(entity);
-            return Ok(rowAffects);
+            if (rowAffects.MISACode == MISACode.NotValid)
+            {
+                return BadRequest(rowAffects);
+            }
+            else
+                return Ok(rowAffects);
+
         }
 
         // DELETE api/<CustomersController>/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(Guid id)
+        public IActionResult Delete(string id)
         {
-            var res = _baseService.Delete(id);
-            return Ok(res);
+            var serviceResult = _baseService.Delete(Guid.Parse(id));
+            if (serviceResult.MISACode == MISACode.NotSuccess)
+            {
+                return NoContent();
+            }
+            return Ok(serviceResult);
         }
-
     }
 }

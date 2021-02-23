@@ -1,0 +1,47 @@
+.grid {
+    height: calc(100vh - 265px);
+    overflow: auto;
+    padding-left: 16px;
+    padding-right: 16px;
+    text-align: left;
+}
+
+    .grid::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    .grid::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+
+    .grid .table-grid {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        .grid .table-grid thead tr th {
+            height: 40px;
+            position: sticky;
+            padding-left: 16px;
+            padding-right: 16px;
+            top: 0;
+            background-color: #ffffff;
+        }
+
+        .grid .table-grid tbody tr:nth-child(even) {
+            background-color: #E9EBEE;
+        }
+
+        .grid .table-grid tbody tr td {
+            height: 40px;
+            padding-right: 16px;
+            padding-left: 16px;
+            max-width: 100px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .grid .table-grid tbody tr:hover {
+            background-color: #0191605c;
+        }

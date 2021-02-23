@@ -18,9 +18,9 @@ namespace MISA.ApplicationCore.Interfaces
         /// <summary>
         /// Lấy danh sách khách hàng theo nhóm khách hàng
         /// </summary>
-        /// <param name="groupId">Id nhóm khách hàng</param>
+        /// <param name="GroupId">Id nhóm khách hàng</param>
         /// <returns>List khách hàng</returns>
         /// CreatedBy: PQKHANH(4/1/2021)
-        IEnumerable<Customer> GetCustomersByGroup(Guid groupId);
+        IEnumerable<Customer> GetCustomersByGroup(Guid GroupId);
     }
 }
