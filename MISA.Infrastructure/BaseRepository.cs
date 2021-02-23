@@ -26,7 +26,7 @@ namespace MISA.Infrastructure
         public BaseRepository(IConfiguration configuration)
         {
             _configuration = configuration;
-            _connectionString = _configuration.GetConnectionString("KhanhConnectionString");
+            _connectionString = _configuration.GetConnectionString("DefaultConnectionString");
             _dbConnection = new MySqlConnection(_connectionString);
         }
         #endregion
